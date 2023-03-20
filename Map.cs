@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tubes2_kelp_juice
+namespace Solver
 {
     public class Map
     {
         /* attributes */
-        private char[,] matrix;
-        private int rows;
-        private int cols;
-        private int numOfTreasure;
-        private Point<int, int>[] treasurePosition;
+        private char[,] matrix; // map matrix
+        private int rows; // row count
+        private int cols; // column count
+        private int numOfTreasure; // treasure count
+        private ArrayList treasurePosition; // ArrayList of List<int>(){x,y}
 
         /* methods */
         /* constructor */
@@ -21,7 +22,7 @@ namespace Tubes2_kelp_juice
         {
             for (int i=0; i<numOfTreasure; i++)
             {
-                treasurePosition[i] = new Tuple<int, int>();
+                treasurePosition = new ArrayList();
             }
         }
 
@@ -42,13 +43,9 @@ namespace Tubes2_kelp_juice
         {
             return numOfTreasure;
         }
-        public Point<int, int>[] getTreasurePosition()
+        public ArrayList getTreasurePosition()
         {
             return treasurePosition;
-        }
-        public Point<int,int> getTreasurePositionIdx(int idx)
-        {
-            return treasurePosition[idx];
         }
 
         /* setter */
@@ -68,7 +65,7 @@ namespace Tubes2_kelp_juice
         {
             numOfTreasure = _numOfTreasure;
         }
-        public void setTreasurePosition(Point<int, int>[] _treasurePosition)
+        public void setTreasurePosition(ArrayList _treasurePosition)
         {
             treasurePosition = _treasurePosition;
         }
@@ -76,19 +73,8 @@ namespace Tubes2_kelp_juice
         /* other methods */
         public bool checkTreasure(int row, int col)
         {
-            bool found;
-            int i = 0;
-            while (!found)
-            {
-                if (treasurePosition[i].Item1 == row && treasurePosition[i].Item2 == col)
-                {
-                    found = true;
-                } else
-                {
-                    i++;
-                }
-            }
-            return found;
+            List<int> check = new List<int>(){row,col};
+            return treasurePosition.Contains(check);
         }
     }
 }
