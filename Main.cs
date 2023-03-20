@@ -8,11 +8,15 @@ public class Program
                           {'T', 'X', 'X', 'X'}};
 
         string sol = "";
-        int num_node = 0;
+        int numNode = 0;
+        long timeExec = 0;
 
-        Solver.DFSSolver.callDFS(3, matrix, 4, 4, ref sol, ref num_node);
+        Solver.DFSSolver.callDFS(3, matrix, 4, 4, 0, 0, ref sol, ref numNode, ref timeExec);
 
-        Console.WriteLine(num_node);
+        Console.WriteLine("Nodes: " + numNode);
+        Console.WriteLine("Steps: " + sol.Length);
+        Console.WriteLine("Time Exec: " + timeExec + " ms");
+        Console.Write("Route: ");
         foreach (char c in sol)
         {
             Console.Write(c + " ");
