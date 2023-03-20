@@ -31,7 +31,7 @@
             }
         }
 
-        public static void callDFS(int numOfTreasure, char[,] matrix, int mxRow, int mxCol, ref string sol, ref int num_node)
+        public static void callDFS(int numOfTreasure, char[,] matrix, int mxRow, int mxCol, int stRow, int stCol, ref string sol, ref int numNode, ref long timeExec)
         {
             cntNode = 0;
             cntTreasure = numOfTreasure;
@@ -51,10 +51,16 @@
                 }
             }
 
-            DFS(0, 0);
+            ST_ROW = stRow;
+            ST_COL = stCol;
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+            DFS(ST_ROW, ST_COL);
+            watch.Stop();
 
             sol = solution;
-            num_node = cntNode;
+            numNode = cntNode;
+            timeExec = watch.ElapsedMilliseconds;
         }
     }
 }
