@@ -10,13 +10,13 @@ namespace Solver
     public class Map
     {
         /* attributes */
-        private char[,] matrix; // map matrix
+        private char[,] matrix = default!; // map matrix
         private int rows; // row count
         private int cols; // column count
         private int startRow; // starting point (row)
         private int startCol; // starting point (col)
         private int numOfTreasure; // treasure count
-        private ArrayList treasurePosition; // ArrayList of List<int>(){x,y}
+        private ArrayList treasurePosition = default!; // ArrayList of List<int>(){x,y}
 
         /* methods */
         /* constructor */

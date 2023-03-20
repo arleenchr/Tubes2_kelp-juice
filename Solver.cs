@@ -9,7 +9,7 @@ namespace Solver
         protected static int MX_ROW, MX_COL, ST_ROW, ST_COL, cntNode, cntTreasure;
         protected static string? solution;
         protected static bool allTreasureFound;
-        protected static bool[,] visited;
-        protected static char[,] grid;
+        protected static bool[,] visited = default!;
+        protected static char[,] grid = default!;
     }
 }
