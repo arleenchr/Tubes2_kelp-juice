@@ -13,6 +13,8 @@ namespace Solver
         private char[,] matrix; // map matrix
         private int rows; // row count
         private int cols; // column count
+        private int startRow; // starting point (row)
+        private int startCol; // starting point (col)
         private int numOfTreasure; // treasure count
         private ArrayList treasurePosition; // ArrayList of List<int>(){x,y}
 
@@ -24,6 +26,16 @@ namespace Solver
             {
                 treasurePosition = new ArrayList();
             }
+        }
+        public Map(char[,] _matrix, int _rows, int _cols, int _startRow, int _startCol, int _numOfTreasure, ArrayList _treasurePosition)
+        {
+            matrix = _matrix;
+            rows = _rows;
+            cols = _cols;
+            startRow = _startRow;
+            startCol = _startCol;
+            numOfTreasure = _numOfTreasure;
+            treasurePosition = _treasurePosition;
         }
 
         /* getter */
@@ -38,6 +50,14 @@ namespace Solver
         public int getCols()
         {
             return cols;
+        }
+        public int getStartRow()
+        {
+            return startRow;
+        }
+        public int getStartCol()
+        {
+            return startCol;
         }
         public int getNumOfTreasure()
         {
@@ -60,6 +80,14 @@ namespace Solver
         public void setCols(int _cols)
         {
             cols = _cols;
+        }
+        public void setStartRow(int _startRow)
+        {
+            startRow = _startRow;
+        }
+        public void setStartCol(int _startCol)
+        {
+            startCol = _startCol;
         }
         public void setNumOfTreasure(int _numOfTreasure)
         {

@@ -1,3 +1,6 @@
+using Solver;
+using System.Collections;
+
 public class Program
 {
     static void Main()
@@ -6,12 +9,18 @@ public class Program
                           {'R', 'R', 'X', 'T'},
                           {'R', 'T', 'X', 'X'},
                           {'T', 'X', 'X', 'X'}};
+        ArrayList treasures = new ArrayList();
+        treasures.Add(new List<int>() { 1, 3 });
+        treasures.Add(new List<int>() { 2, 1 });
+        treasures.Add(new List<int>() { 3, 0 });
+
+        Map map = new Map(matrix, 4, 4, 0, 0, 3, treasures);
 
         string sol = "";
         int numNode = 0;
         long timeExec = 0;
 
-        Solver.DFSSolver.callDFS(3, matrix, 4, 4, 0, 0, ref sol, ref numNode, ref timeExec);
+        Solver.DFSSolver.callDFS(map, ref sol, ref numNode, ref timeExec);
 
         Console.WriteLine("Nodes: " + numNode);
         Console.WriteLine("Steps: " + sol.Length);

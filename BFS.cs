@@ -9,7 +9,7 @@ namespace Solver
 {
     public class BFSSolver : Solver
     {
-        public static void BFS(Map map, int startRow, int startCol, ref string sol, ref int num_node)
+        public static void BFS(Map map, ref string sol, ref int num_node)
         {
             cntNode = 0;
             string solution = ""; // solution path
@@ -33,8 +33,8 @@ namespace Solver
                 }
             }
 
-            int currentRow = startRow;
-            int currentCol = startCol;
+            int currentRow = map.getStartRow();
+            int currentCol = map.getStartCol();
             queue.Add(new List<int>() { currentRow, currentCol }); // add first position to queue
 
             while (!allTreasureFound && queue.Count > 0)

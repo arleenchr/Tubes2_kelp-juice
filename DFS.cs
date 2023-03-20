@@ -31,15 +31,15 @@
             }
         }
 
-        public static void callDFS(int numOfTreasure, char[,] matrix, int mxRow, int mxCol, int stRow, int stCol, ref string sol, ref int numNode, ref long timeExec)
+        public static void callDFS(Map map, ref string sol, ref int numNode, ref long timeExec)
         {
             cntNode = 0;
-            cntTreasure = numOfTreasure;
+            cntTreasure = map.getNumOfTreasure();
             allTreasureFound = false;
             solution = "";
 
-            MX_ROW = mxRow;
-            MX_COL = mxCol;
+            MX_ROW = map.getRows();
+            MX_COL = map.getCols();
             visited = new bool[MX_ROW, MX_COL];
             grid = new char[MX_ROW, MX_COL];
 
@@ -47,12 +47,12 @@
             {
                 for (int j = 0; j < MX_COL; j++)
                 {
-                    grid[i, j] = matrix[i, j];
+                    grid[i, j] = map.getMatrix()[i, j];
                 }
             }
 
-            ST_ROW = stRow;
-            ST_COL = stCol;
+            ST_ROW = map.getStartRow();
+            ST_COL = map.getStartCol();
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
             DFS(ST_ROW, ST_COL);
