@@ -31,19 +31,28 @@ namespace Solver
 
             while (!allTreasureFound && queue.Count > 0)
             {
-                cntNode++; // node check
+                //Console.WriteLine("----------");
+                //Console.WriteLine(string.Format("evaluate ({0},{1})", queue.Peek().rowId, queue.Peek().colId));
+
+                cntNode += 1; // node check
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
                 if (map.grid[currentRow, currentCol] == 'T')
                 {
-                    map.numOfTreasure--; // treasure found
+                    /*map.numOfTreasure--; // treasure found
                     treasurePicked.Add(new Point(currentRow, currentCol));
+                    Console.WriteLine("Treasure left: " + map.numOfTreasure);
+                    Console.WriteLine("Treasure Picked:");
+                    for (int idx = 0; idx < treasurePicked.Count; idx++)
+                    {
+                        Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
+                    }*/
                 }
                 if (map.numOfTreasure == 0)
                 {
                     allTreasureFound = true; // all treasure found
-                    return;
+                    break;
                 }
 
                 // visit node (direction priority: RLDU)
@@ -55,38 +64,67 @@ namespace Solver
                         visited[newRow, newCol] || map.grid[newRow, newCol] == 'X' || allTreasureFound)
                     {
                         // won't be visited
+                        //Console.WriteLine(string.Format("sekip. ({0},{1}) dir = {2}", newRow, newCol, i));
                         continue;
                     }
                     // else
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
                     pathPoints.Add(new PointDir(newRow, newCol, i)); // add to solution (x,y,direction index)
-
+                    visited[newRow, newCol] = true; // visited
                     //Console.WriteLine(string.Format("({0},{1}), direction index = {2}", newRow, newCol,i));
 
-                    if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.x == newRow && p.y == newCol) == -1)
+                    if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.rowId == newRow && p.colId == newCol) == -1)
                     {
                         //Console.WriteLine("Ketemu gesss");
+
+                        // mark picked
+                        map.numOfTreasure--; // treasure found
+                        treasurePicked.Add(new Point(newRow, newCol));
+
+                        //Console.WriteLine("Treasure left: " + map.numOfTreasure);
+                        //Console.WriteLine("Treasure Picked:");
+                        //for (int idx = 0; idx < treasurePicked.Count; idx++)
+                        //{
+                            //Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
+                        //}
+
                         // create path
                         // last element in pathPoint
-                        int currentPathRow = pathPoints[pathPoints.Count - 1].y;
-                        int currentPathCol = pathPoints[pathPoints.Count - 1].x;
-                        int directionIndex = pathPoints[pathPoints.Count - 1].direction;
+                        int currentPathRow = pathPoints[pathPoints.Count - 1].rowId;
+                        int currentPathCol = pathPoints[pathPoints.Count - 1].colId;
+                        int currentDirection = pathPoints[pathPoints.Count - 1].direction;
+                        //Console.WriteLine(string.Format("temp start = ({0},{1})", tempStartRow, tempStartCol));
+                        //Console.WriteLine(string.Format("beginning path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
 
-                        while (currentPathRow != tempStartRow && currentPathCol != tempStartCol)
+                        bool reachStart = false;
+                        string tempSolution = "";
+                        while (!reachStart)
                         {
+                            if (currentPathRow==tempStartRow && currentPathCol==tempStartCol)
+                            {
+                                break;
+                            }
+                            //Console.WriteLine(string.Format("current path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
+
                             // concat solution
-                            solution += reverseDirection[directionIndex];
+                            tempSolution += reverseDirection[currentDirection];
+                            //Console.WriteLine(tempSolution);
 
                             // search for the previous node
-                            currentPathRow += reverse_dy[directionIndex];
-                            currentPathCol += reverse_dx[directionIndex];
+                            currentPathRow += reverse_dy[currentDirection];
+                            currentPathCol += reverse_dx[currentDirection];
                             // search in pathPoints
-                            if (currentPathRow != tempStartRow && currentPathCol != tempStartCol)
+                            if (!(currentPathRow==tempStartRow && currentPathCol==tempStartCol))
                             {
-                                Predicate<Point> nextPoint = p => p.x == currentPathCol && p.y == currentPathRow;
-                                directionIndex = pathPoints[pathPoints.FindIndex(nextPoint)].direction;
+                                pathPoints.Reverse();
+                                Predicate<Point> nextPoint = p => p.rowId == currentPathRow && p.colId == currentPathCol;
+                                currentDirection = pathPoints[pathPoints.FindIndex(nextPoint)].direction;
+                                pathPoints.Reverse();
+                                //Console.WriteLine(string.Format("Next = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
                             }
                         }
+                        solution = tempSolution + solution;
+                        //Console.WriteLine(solution);
 
                         // simpen treasure yang udah diambil
                         // if (new) treasure found
@@ -101,8 +139,8 @@ namespace Solver
 
                 // next
                 Point currentPoint = queue.Peek();
-                currentRow = currentPoint.y;
-                currentCol = currentPoint.x;
+                currentRow = currentPoint.rowId;
+                currentCol = currentPoint.colId;
             }
 
             num_node = cntNode;

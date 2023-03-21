@@ -8,14 +8,14 @@ namespace Solver
 {
     public class Point
     {
-        public int x { get; set; }
-        public int y { get; set; }
+        public int rowId { get; set; } // row
+        public int colId { get; set; } // col
 
         /* constructor */
-        public Point(int _x, int _y)
+        public Point(int _rowId, int _colId)
         {
-            x = _x;
-            y = _y;
+            rowId = _rowId;
+            colId = _colId;
         }
     }
     public class PointDir : Point
@@ -23,7 +23,7 @@ namespace Solver
         public int direction { get; set; }
 
         /* constructor */
-        public PointDir(int _x, int _y, int _direction) : base(_x,_y)
+        public PointDir(int _rowId, int _colId, int _direction) : base(_rowId,_colId)
         {
             direction = _direction;
         }
@@ -34,13 +34,13 @@ namespace Solver
             if (p is PointDir)
             {
                 PointDir p2 = (PointDir)p;
-                return p2.x == x && p2.y == y && p2.direction == direction;
+                return p2.rowId == rowId && p2.colId == colId && p2.direction == direction;
             }
             return false;
         }
         public override int GetHashCode()
         {
-            return x ^ y ^ direction;
+            return rowId ^ colId ^ direction;
         }
     }
 }
