@@ -9,7 +9,7 @@ namespace Solver
 {
     public class BFSSolver : Solver
     {
-        public static void BFS(Map map, ref string sol, ref int num_node)
+        public static void BFS(Map map, ref string sol, ref int num_node, ref long timeExec)
         {
             cntNode = 0;
             string solution = ""; // solution path
@@ -22,6 +22,10 @@ namespace Solver
             List<PointDir> pathPoints = new List<PointDir>() { }; // list of PointDir
 
             List<Point> treasurePicked = new List<Point>() { }; // list of treasure picked 
+
+            // start timer
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
 
             int currentRow = map.startRow;
             int currentCol = map.startCol;
@@ -143,8 +147,12 @@ namespace Solver
                 currentCol = currentPoint.colId;
             }
 
+            // stop watch
+            watch.Stop();
+
             num_node = cntNode;
             sol = solution;
+            timeExec = watch.ElapsedMilliseconds;
         }
     }
 }

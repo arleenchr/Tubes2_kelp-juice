@@ -4,15 +4,14 @@ public class Program
 {
     static void Main()
     {
-        
-        char[,] grid = {{'K', 'R', 'R', 'R'},
+        /*char[,] grid = {{'K', 'R', 'R', 'R'},
                         {'R', 'R', 'X', 'T'},
                         {'R', 'T', 'X', 'X'},
-                        {'T', 'X', 'X', 'X'}};
-        /*char[,] grid = {{'K', 'R', 'T', 'R'},
+                        {'T', 'X', 'X', 'X'}};*/
+        char[,] grid = {{'K', 'R', 'T', 'R'},
                         {'X', 'X', 'R', 'R'},
                         {'R', 'T', 'R', 'R'},
-                        {'R', 'R', 'R', 'R'}};*/
+                        {'R', 'R', 'R', 'R'}};
         Map map = new Map(grid);
 
         for (int i=0; i <map.rows; i++) {
@@ -41,10 +40,10 @@ public class Program
 
         //Console.WriteLine();
         Console.WriteLine("BFS");
-        Solver.BFSSolver.BFS(map, ref solution, ref cntNode);
+        Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
         Console.WriteLine("Nodes: " + cntNode);
         Console.WriteLine("Steps: " + solution.Length);
-        //Console.WriteLine("Time Exec: " + timeExec + " ms");
+        Console.WriteLine("Time Exec: " + timeExec + " ms");
         Console.Write("Route: ");
         foreach (char c in solution)
         {
