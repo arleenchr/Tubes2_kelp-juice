@@ -19,21 +19,21 @@ namespace WindowsFormsApp1
 
         PictureBox[] pictureMap = new PictureBox[16];
         string path = "RDDRRU";
-        string tresImagePath = @"..\..\treasure.png";
-        string startImagePath = @"..\..\start.png";
-        string pathImagePath = @"..\..\path.png";
-        string stoneImagePath = @"..\..\stone.png";
-        string buttonImagePath = @"..\..\button1.png";
-        string buttonHoverImagePath = @"..\..\button1hover.png";
-        string buttonPressImagePath = @"..\..\button1pressed.png";
-        string button2ImagePath = @"..\..\button2.png";
-        string button2HoverImagePath = @"..\..\button2hover.png";
-        string button2PressImagePath = @"..\..\button2pressed.png";
-        string button3ImagePath = @"..\..\buttonSmall.png";
-        string button3HoverImagePath = @"..\..\buttonSmallHover.png";
-        string button3PressImagePath = @"..\..\buttonSmallPressed.png";
-        string mapImagePath = @"..\..\map.png";
-        string titleImagePath = @"..\..\title.png";
+        string tresImagePath = @"..\..\resources\treasure.png";
+        string startImagePath = @"..\..\resources\start.png";
+        string pathImagePath = @"..\..\resources\path.png";
+        string stoneImagePath = @"..\..\resources\stone.png";
+        string buttonImagePath = @"..\..\resources\button1.png";
+        string buttonHoverImagePath = @"..\..\resources\button1hover.png";
+        string buttonPressImagePath = @"..\..\resources\button1pressed.png";
+        string button2ImagePath = @"..\..\resources\button2.png";
+        string button2HoverImagePath = @"..\..\resources\button2hover.png";
+        string button2PressImagePath = @"..\..\resources\button2pressed.png";
+        string button3ImagePath = @"..\..\resources\buttonSmall.png";
+        string button3HoverImagePath = @"..\..\resources\buttonSmallHover.png";
+        string button3PressImagePath = @"..\..\resources\buttonSmallPressed.png";
+        string mapImagePath = @"..\..\resources\map.png";
+        string titleImagePath = @"..\..\resources\title.png";
 
         int start = -1;
         int startRow = -1;
