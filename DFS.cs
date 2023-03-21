@@ -34,12 +34,12 @@
         public static void callDFS(Map map, ref string sol, ref int numNode, ref long timeExec)
         {
             cntNode = 0;
-            cntTreasure = map.getNumOfTreasure();
+            cntTreasure = map.numOfTreasure;
             allTreasureFound = false;
             solution = "";
 
-            MX_ROW = map.getRows();
-            MX_COL = map.getCols();
+            MX_ROW = map.rows;
+            MX_COL = map.cols;
             visited = new bool[MX_ROW, MX_COL];
             grid = new char[MX_ROW, MX_COL];
 
@@ -47,12 +47,12 @@
             {
                 for (int j = 0; j < MX_COL; j++)
                 {
-                    grid[i, j] = map.getMatrix()[i, j];
+                    grid[i, j] = map.matrix[i, j];
                 }
             }
 
-            ST_ROW = map.getStartRow();
-            ST_COL = map.getStartCol();
+            ST_ROW = map.startRow;
+            ST_COL = map.startCol;
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
             DFS(ST_ROW, ST_COL);
