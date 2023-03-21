@@ -110,8 +110,8 @@ namespace Solver
                             }
                             //Console.WriteLine(string.Format("current path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
 
-                            // concat solution
-                            tempSolution += reverseDirection[currentDirection];
+                            // path solution (reversed: from the last treasure to temp start)
+                            tempSolution += direction[currentDirection];
                             //Console.WriteLine(tempSolution);
 
                             // search for the previous node
@@ -127,7 +127,15 @@ namespace Solver
                                 //Console.WriteLine(string.Format("Next = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
                             }
                         }
-                        solution = tempSolution + solution;
+                        // reverse tempSolution
+                        int strIdx = tempSolution.Length - 1;
+                        string tempSolutionReversed = "";
+                        while (strIdx >= 0)
+                        {
+                            tempSolutionReversed += tempSolution[strIdx];
+                            strIdx--;
+                        }
+                        solution += tempSolutionReversed;
                         //Console.WriteLine(solution);
 
                         // simpen treasure yang udah diambil
