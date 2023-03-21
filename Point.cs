@@ -29,7 +29,7 @@ namespace Solver
         }
 
         /* operators */
-        public override bool Equals(object p)
+        public override bool Equals(object? p)
         {
             if (p is PointDir)
             {
@@ -37,6 +37,10 @@ namespace Solver
                 return p2.x == x && p2.y == y && p2.direction == direction;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return x ^ y ^ direction;
         }
     }
 }

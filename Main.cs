@@ -21,7 +21,7 @@ public class Program
         long timeExec = 0;
 
         Solver.DFSSolver.callDFS(map, ref sol, ref numNode, ref timeExec);
-
+        Console.WriteLine("DFS");
         Console.WriteLine("Nodes: " + numNode);
         Console.WriteLine("Steps: " + sol.Length);
         Console.WriteLine("Time Exec: " + timeExec + " ms");
@@ -30,5 +30,16 @@ public class Program
         {
             Console.Write(c + " ");
         }
+        /*
+        Solver.BFSSolver.BFS(map, ref sol, ref numNode);
+        Console.WriteLine("BFS");
+        Console.WriteLine("Nodes: " + numNode);
+        Console.WriteLine("Steps: " + sol.Length);
+        //Console.WriteLine("Time Exec: " + timeExec + " ms");
+        Console.Write("Route: ");
+        foreach (char c in sol)
+        {
+            Console.Write(c + " ");
+        }*/
     }
 }
