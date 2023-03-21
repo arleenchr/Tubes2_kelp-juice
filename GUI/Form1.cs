@@ -16,8 +16,6 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-
-        PictureBox[] pictureMap = new PictureBox[16];
         string path = "RDDRRU";
         string tresImagePath = @"..\..\resources\treasure.png";
         string startImagePath = @"..\..\resources\start.png";
@@ -44,23 +42,6 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            pictureMap[0] = pictureBox1;
-            pictureMap[1] = pictureBox2;
-            pictureMap[2] = pictureBox3;
-            pictureMap[3] = pictureBox4;
-            pictureMap[4] = pictureBox5;
-            pictureMap[5] = pictureBox6;
-            pictureMap[6] = pictureBox7;
-            pictureMap[7] = pictureBox8;
-            pictureMap[8] = pictureBox9;
-            pictureMap[9] = pictureBox10;
-            pictureMap[10] = pictureBox11;
-            pictureMap[11] = pictureBox12;
-            pictureMap[12] = pictureBox13;
-            pictureMap[13] = pictureBox14;
-            pictureMap[14] = pictureBox15;
-            pictureMap[15] = pictureBox16;
-
             button1.BackgroundImage = Image.FromFile(buttonImagePath);
             button1.BackColor = Color.Transparent;
             button1.FlatStyle = FlatStyle.Flat;
@@ -79,9 +60,7 @@ namespace WindowsFormsApp1
 
             pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox17.BackColor = Color.Transparent;
-            dataGridView1.Visible = false;
-
-            
+            dataGridView1.Visible = false;   
         }
 
 
@@ -146,11 +125,7 @@ namespace WindowsFormsApp1
                         {
                             //row.Cells[j].Value = Image.FromFile(startImagePath);
                             row.Cells[j].Value = "START";
-                            
-
-                            pictureMap[4*i + j].Visible = true;
-                            pictureMap[4 * i + j].ImageLocation = startImagePath;
-                            pictureMap[4 * i + j].SizeMode = PictureBoxSizeMode.StretchImage;
+                           
                             start = 4 * i + j;
                             startColumn = j;
                             startRow = i;
@@ -160,17 +135,12 @@ namespace WindowsFormsApp1
                         {
                             row.Cells[j].Value = "";
 
-                            pictureMap[4 * i + j].Visible = true;
                             j++;
                         }
                         else if (c == 'T')
                         {
                             row.Cells[j].Value = "GOAL";
 
-                            pictureMap[4 * i + j].Visible = true;
-                            treasures[num_treasure] = 4 * i + j;
-                            pictureMap[4 * i + j].ImageLocation = tresImagePath;
-                            pictureMap[4 * i + j].SizeMode = PictureBoxSizeMode.StretchImage;
                             j++;
                             num_treasure++;
                         }
@@ -202,8 +172,6 @@ namespace WindowsFormsApp1
             int curRow = startRow;
             int curColumn = startColumn;
 
-            pictureMap[start].BackColor = color;
-            int curBox = start;
             for (int i=0;i<end; i++)
             {
                 char c = path[i];
@@ -211,42 +179,30 @@ namespace WindowsFormsApp1
                 {
                     curColumn++;
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-
-                    curBox += 1;
-                    pictureMap[curBox].BackColor = color;
                 }
                 else if (c == 'L')
                 {
                     curColumn--;
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-
-                    curBox -= 1;
-                    pictureMap[curBox].BackColor = color;
                 }
                 else if (c == 'U')
                 {
                     curRow--;
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-
-                    curBox -= 4;
-                    pictureMap[curBox].BackColor = color;
                 }
                 else if (c == 'D')
                 {
                     curRow++;
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-
-                    curBox += 4;
-                    pictureMap[curBox].BackColor = color;
                 }
 
             }
-            return curBox;
+            return curRow;
         }
 
         private void colorBox(int curBox, Color color)
         {
-            pictureMap[curBox].BackColor = color;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
