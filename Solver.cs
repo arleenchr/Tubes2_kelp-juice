@@ -8,7 +8,7 @@ namespace Solver
         protected static int[] reverse_dy = { 0, 0, -1, 1 };
         protected static char[] direction = { 'R', 'L', 'D', 'U' };
         protected static char[] reverseDirection = { 'L', 'R', 'U', 'D' };
-        protected static int cntNode;
+        protected static int cntNode, numOfTreasure;
         protected static string solution = default!;
         protected static bool allTreasureFound;
         protected static bool[,] visited = default!;

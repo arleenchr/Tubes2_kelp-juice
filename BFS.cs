@@ -14,6 +14,7 @@ namespace Solver
             cntNode = 0;
             string solution = ""; // solution path
             allTreasureFound = false;
+            numOfTreasure = map.numOfTreasure;
 
             visited = new bool[map.rows, map.cols]; // is-visited info
 
@@ -44,16 +45,16 @@ namespace Solver
 
                 if (map.grid[currentRow, currentCol] == 'T')
                 {
-                    /*map.numOfTreasure--; // treasure found
+                    /*numOfTreasure--; // treasure found
                     treasurePicked.Add(new Point(currentRow, currentCol));
-                    Console.WriteLine("Treasure left: " + map.numOfTreasure);
+                    Console.WriteLine("Treasure left: " + numOfTreasure);
                     Console.WriteLine("Treasure Picked:");
                     for (int idx = 0; idx < treasurePicked.Count; idx++)
                     {
                         Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
                     }*/
                 }
-                if (map.numOfTreasure == 0)
+                if (numOfTreasure == 0)
                 {
                     allTreasureFound = true; // all treasure found
                     break;
@@ -82,10 +83,10 @@ namespace Solver
                         //Console.WriteLine("Ketemu gesss");
 
                         // mark picked
-                        map.numOfTreasure--; // treasure found
+                        numOfTreasure--; // treasure found
                         treasurePicked.Add(new Point(newRow, newCol));
 
-                        //Console.WriteLine("Treasure left: " + map.numOfTreasure);
+                        //Console.WriteLine("Treasure left: " + numOfTreasure);
                         //Console.WriteLine("Treasure Picked:");
                         //for (int idx = 0; idx < treasurePicked.Count; idx++)
                         //{

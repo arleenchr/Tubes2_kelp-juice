@@ -8,8 +8,8 @@
             visited[row, col] = true;
 
             if (map.grid[row, col] == 'T') // Found treasure
-                map.numOfTreasure--;
-            if (map.numOfTreasure == 0) // All treasure found!
+                numOfTreasure--;
+            if (numOfTreasure == 0) // All treasure found!
             {
                 allTreasureFound = true;
                 return;
@@ -37,6 +37,7 @@
             allTreasureFound = false;
             solution = "";
             map = _map;
+            numOfTreasure = map.numOfTreasure;
 
             visited = new bool[map.rows, map.cols];
 
