@@ -7,9 +7,9 @@
             cntNode++; // Node check
             visited[row, col] = true;
 
-            if (grid[row, col] == 'T') // Found treasure
-                cntTreasure--;
-            if (cntTreasure == 0) // All treasure found!
+            if (map.grid[row, col] == 'T') // Found treasure
+                map.numOfTreasure--;
+            if (map.numOfTreasure == 0) // All treasure found!
             {
                 allTreasureFound = true;
                 return;
@@ -19,8 +19,8 @@
             {
                 int newRow = row + dy[i];
                 int newCol = col + dx[i];
-                if (newRow < 0 || newRow >= MX_ROW || newCol < 0 || newCol >= MX_COL ||
-                    visited[newRow, newCol] || grid[newRow, newCol] == 'X' || allTreasureFound)
+                if (newRow < 0 || newRow >= map.rows || newCol < 0 || newCol >= map.cols ||
+                    visited[newRow, newCol] || map.grid[newRow, newCol] == 'X' || allTreasureFound)
                     continue;
 
                 solution += direction[i];
@@ -31,35 +31,22 @@
             }
         }
 
-        public static void callDFS(Map map, ref string sol, ref int numNode, ref long timeExec)
+        public static void callDFS(Map _map, ref string _solution, ref int _cntNode, ref long timeExec)
         {
             cntNode = 0;
-            cntTreasure = map.numOfTreasure;
             allTreasureFound = false;
             solution = "";
+            map = _map;
 
-            MX_ROW = map.rows;
-            MX_COL = map.cols;
-            visited = new bool[MX_ROW, MX_COL];
-            grid = new char[MX_ROW, MX_COL];
+            visited = new bool[map.rows, map.cols];
 
-            for (int i = 0; i < MX_ROW; i++)
-            {
-                for (int j = 0; j < MX_COL; j++)
-                {
-                    grid[i, j] = map.matrix[i, j];
-                }
-            }
-
-            ST_ROW = map.startRow;
-            ST_COL = map.startCol;
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
-            DFS(ST_ROW, ST_COL);
+            DFS(map.startRow, map.startCol);
             watch.Stop();
 
-            sol = solution;
-            numNode = cntNode;
+            _solution = solution;
+            _cntNode = cntNode;
             timeExec = watch.ElapsedMilliseconds;
         }
     }
