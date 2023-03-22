@@ -36,14 +36,14 @@ namespace Solver
                 string? line = reader.ReadLine();
                 if (line == null) throw new InvalidDataException("File tidak valid!");
 
-                grid = new char[File.ReadAllLines(userFileName).Length, line.Length];
+                grid = new char[File.ReadAllLines(userFileName).Length, line.Length / 2 + 1];
                 int cntLine = 0;
 
                 while (line != null)
                 {
-                    for (int i = 0; i < line.Length; i++)
+                    for (int i = 0; i < line.Length; i += 2)
                     {
-                        grid[cntLine, i] = line[i];
+                        grid[cntLine, i / 2] = line[i];
                     }
                     cntLine++;
                     line = reader.ReadLine();
