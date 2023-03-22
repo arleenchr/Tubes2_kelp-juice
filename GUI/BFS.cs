@@ -9,7 +9,7 @@ namespace Solver
 {
     public class BFSSolver : Solver
     {
-        public static void BFS(Map map, ref string sol, ref int num_node, ref long timeExec)
+        public static void BFS(Map map, ref string sol, ref int num_node, ref List<PointDir> pathPoints, ref long timeExec)
         {
             cntNode = 0;
             string solution = ""; // solution path
@@ -20,7 +20,7 @@ namespace Solver
 
             Queue<Point> queue = new Queue<Point> { }; // queue of to-be-visited nodes (queue of Point)
 
-            List<PointDir> pathPoints = new List<PointDir>() { }; // list of PointDir
+            pathPoints = new List<PointDir>() { }; // list of PointDir
 
             List<Point> treasurePicked = new List<Point>() { }; // list of treasure picked 
 
