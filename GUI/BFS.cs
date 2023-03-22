@@ -28,8 +28,8 @@ namespace Solver
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            int currentRow = map.startRow;
-            int currentCol = map.startCol;
+            int currentRow = map.start.rowId;
+            int currentCol = map.start.colId;
             int tempStartRow = currentRow;
             int tempStartCol = currentCol;
             queue.Enqueue(new Point(currentRow, currentCol)); // add first position to queue

@@ -43,7 +43,7 @@
 
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
-            DFS(map.startRow, map.startCol);
+            DFS(map.start.rowId, map.start.colId);
             watch.Stop();
 
             _solution = solution;

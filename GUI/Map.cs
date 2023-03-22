@@ -6,8 +6,7 @@
         public char[,] grid { get; set; } // map matrix
         public int rows { get; set; } // row count
         public int cols { get; set; } // column count
-        public int startRow { get; set; } // starting point (row)
-        public int startCol { get; set; } // starting point (col)
+        public Point start { get; set; } // starting point (row,col)
         public int numOfTreasure { get; set; } // treasure count
 
         /* methods */
@@ -25,8 +24,7 @@
                 {
                     if (grid[i, j] == 'K')
                     {
-                        startRow = i;
-                        startCol = j;
+                        start = new Point(i, j);
                     }
                     else if (grid[i, j] == 'T')
                     {
