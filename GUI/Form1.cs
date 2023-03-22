@@ -12,10 +12,20 @@ using System.Drawing.Configuration;
 using System.Reflection;
 using Solver;
 
+using System.Drawing.Text;
+
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+            IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
+
+        private PrivateFontCollection fonts = new PrivateFontCollection();
+
+        Font myFont;
+
         string path = "RDDRRU";
         string buttonImagePath = @"..\..\resources\button1.png";
         string buttonHoverImagePath = @"..\..\resources\button1hover.png";
@@ -70,12 +80,23 @@ namespace WindowsFormsApp1
             map = new Map(grid);
 
             method = "DFS";
+
+            byte[] fontData = Properties.Resources.icomoon;
+            IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
+            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            uint dummy = 0;
+            fonts.AddMemoryFont(fontPtr, Properties.Resources.icomoon.Length);
+            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.icomoon.Length, IntPtr.Zero, ref dummy);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
+
+            myFont = new Font(fonts.Families[0], 24.0F);
         }
 
 
         private void fillData()
         {
             dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.DefaultCellStyle.Font = myFont;
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dataGridView1.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(dataGridView1, true, null);
             for (int i = 0; i < 4; i++)
@@ -139,7 +160,7 @@ namespace WindowsFormsApp1
                         if (c == 'K')
                         {
                             //row.Cells[j].Value = Image.FromFile(startImagePath);
-                            row.Cells[j].Value = "START";
+                            row.Cells[j].Value = "b";
                            
                             startColumn = j;
                             startRow = i;
@@ -153,7 +174,7 @@ namespace WindowsFormsApp1
                         }
                         else if (c == 'T')
                         {
-                            row.Cells[j].Value = "GOAL";
+                            row.Cells[j].Value = "c";
 
                             j++;
                             num_treasure++;
@@ -209,7 +230,6 @@ namespace WindowsFormsApp1
                     curRow++;
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
-
             }
             return curRow;
         }
