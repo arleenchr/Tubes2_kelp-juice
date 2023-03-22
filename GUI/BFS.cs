@@ -9,6 +9,56 @@ namespace Solver
 {
     public class BFSSolver : Solver
     {
+        
+        public static void createPath(List<PointDir> pathPoints, int tempStartRow, int tempStartCol, ref string solution)
+        {
+            // create path
+            // last element in pathPoint
+            int currentPathRow = pathPoints[pathPoints.Count - 1].rowId;
+            int currentPathCol = pathPoints[pathPoints.Count - 1].colId;
+            int currentDirection = pathPoints[pathPoints.Count - 1].direction;
+            //Console.WriteLine(string.Format("temp start = ({0},{1})", tempStartRow, tempStartCol));
+            //Console.WriteLine(string.Format("beginning path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
+
+            bool reachStart = false;
+            string tempSolution = "";
+            while (!reachStart)
+            {
+                if (currentPathRow == tempStartRow && currentPathCol == tempStartCol)
+                {
+                    break;
+                }
+                //Console.WriteLine(string.Format("current path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
+
+                // path solution (reversed: from the last treasure to temp start)
+                tempSolution += direction[currentDirection];
+                //Console.WriteLine(tempSolution);
+
+                // search for the previous node
+                currentPathRow += reverse_dy[currentDirection];
+                currentPathCol += reverse_dx[currentDirection];
+                // search in pathPoints
+                if (!(currentPathRow == tempStartRow && currentPathCol == tempStartCol))
+                {
+                    pathPoints.Reverse();
+                    Predicate<Point> nextPoint = p => p.rowId == currentPathRow && p.colId == currentPathCol;
+                    currentDirection = pathPoints[pathPoints.FindIndex(nextPoint)].direction;
+                    pathPoints.Reverse();
+                    //Console.WriteLine(string.Format("Next = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
+                }
+            }
+            // reverse tempSolution
+            int strIdx = tempSolution.Length - 1;
+            string tempSolutionReversed = "";
+            while (strIdx >= 0)
+            {
+                tempSolutionReversed += tempSolution[strIdx];
+                strIdx--;
+            }
+            solution += tempSolutionReversed;
+            //Console.WriteLine(solution);
+        }
+
         public static void BFS(Map map, ref string sol, ref int num_node, ref long timeExec)
         {
             cntNode = 0;
@@ -90,54 +140,11 @@ namespace Solver
                         //Console.WriteLine("Treasure Picked:");
                         //for (int idx = 0; idx < treasurePicked.Count; idx++)
                         //{
-                            //Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
+                        //Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
                         //}
 
                         // create path
-                        // last element in pathPoint
-                        int currentPathRow = pathPoints[pathPoints.Count - 1].rowId;
-                        int currentPathCol = pathPoints[pathPoints.Count - 1].colId;
-                        int currentDirection = pathPoints[pathPoints.Count - 1].direction;
-                        //Console.WriteLine(string.Format("temp start = ({0},{1})", tempStartRow, tempStartCol));
-                        //Console.WriteLine(string.Format("beginning path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
-
-                        bool reachStart = false;
-                        string tempSolution = "";
-                        while (!reachStart)
-                        {
-                            if (currentPathRow==tempStartRow && currentPathCol==tempStartCol)
-                            {
-                                break;
-                            }
-                            //Console.WriteLine(string.Format("current path = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
-
-                            // path solution (reversed: from the last treasure to temp start)
-                            tempSolution += direction[currentDirection];
-                            //Console.WriteLine(tempSolution);
-
-                            // search for the previous node
-                            currentPathRow += reverse_dy[currentDirection];
-                            currentPathCol += reverse_dx[currentDirection];
-                            // search in pathPoints
-                            if (!(currentPathRow==tempStartRow && currentPathCol==tempStartCol))
-                            {
-                                pathPoints.Reverse();
-                                Predicate<Point> nextPoint = p => p.rowId == currentPathRow && p.colId == currentPathCol;
-                                currentDirection = pathPoints[pathPoints.FindIndex(nextPoint)].direction;
-                                pathPoints.Reverse();
-                                //Console.WriteLine(string.Format("Next = ({0},{1}), dir = {2}", currentPathRow, currentPathCol, currentDirection));
-                            }
-                        }
-                        // reverse tempSolution
-                        int strIdx = tempSolution.Length - 1;
-                        string tempSolutionReversed = "";
-                        while (strIdx >= 0)
-                        {
-                            tempSolutionReversed += tempSolution[strIdx];
-                            strIdx--;
-                        }
-                        solution += tempSolutionReversed;
-                        //Console.WriteLine(solution);
+                        createPath(pathPoints, tempStartRow, tempStartCol, ref solution);
 
                         // simpen treasure yang udah diambil
                         // if (new) treasure found
