@@ -10,17 +10,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Configuration;
 using System.Reflection;
-
+using Solver;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
         string path = "RDDRRU";
-        string tresImagePath = @"..\..\resources\treasure.png";
-        string startImagePath = @"..\..\resources\start.png";
-        string pathImagePath = @"..\..\resources\path.png";
-        string stoneImagePath = @"..\..\resources\stone.png";
         string buttonImagePath = @"..\..\resources\button1.png";
         string buttonHoverImagePath = @"..\..\resources\button1hover.png";
         string buttonPressImagePath = @"..\..\resources\button1pressed.png";
@@ -33,12 +29,21 @@ namespace WindowsFormsApp1
         string mapImagePath = @"..\..\resources\map.png";
         string titleImagePath = @"..\..\resources\title.png";
 
-        int start = -1;
+        string solution = "";
+        int cntNode = 0;
+        long timeExec = 0;
+
+        char[,] grid = {{'K', 'R', 'R', 'R'},
+                        {'X', 'R', 'X', 'T'},
+                        {'X', 'T', 'R', 'R'},
+                        {'X', 'R', 'X', 'X'}};
+
         int startRow = -1;
         int startColumn = -1;
         int[] treasures = new int[16];
         int num_treasure = 0;
         string method = "DFS";
+        Map map;
         public Form1()
         {
             InitializeComponent();
@@ -60,12 +65,17 @@ namespace WindowsFormsApp1
 
             pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox17.BackColor = Color.Transparent;
-            dataGridView1.Visible = false;   
+            dataGridView1.Visible = false;
+
+            map = new Map(grid);
+
+            method = "DFS";
         }
 
 
         private void fillData()
         {
+            dataGridView1.AllowUserToResizeColumns = false;
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dataGridView1.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(dataGridView1, true, null);
             for (int i = 0; i < 4; i++)
@@ -74,6 +84,7 @@ namespace WindowsFormsApp1
                 dataGridView1.Columns.Add("dummy","dummy");
                 dataGridView1.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGridView1.Columns[i].Width = 85;
+                dataGridView1.Columns[i].DividerWidth = 5;
                 /*
                 imgCol.Width = 80;
                 imgCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
@@ -93,6 +104,11 @@ namespace WindowsFormsApp1
 
             if(ofd.ShowDialog() == DialogResult.OK)
             {
+                label3.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+                trackBar1.Visible=false;
+
                 string filename = ofd.FileName;
                 foreach(char c in filename)
                 {
@@ -103,8 +119,7 @@ namespace WindowsFormsApp1
                         label1.Text += c;
                     }
                 }
-                
-                string[] map = new string[5];
+
                 int i = 0;
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
@@ -126,7 +141,6 @@ namespace WindowsFormsApp1
                             //row.Cells[j].Value = Image.FromFile(startImagePath);
                             row.Cells[j].Value = "START";
                            
-                            start = 4 * i + j;
                             startColumn = j;
                             startRow = i;
                             j++;
@@ -174,7 +188,7 @@ namespace WindowsFormsApp1
 
             for (int i=0;i<end; i++)
             {
-                char c = path[i];
+                char c = solution[i];
                 if (c == 'R')
                 {
                     curColumn++;
@@ -200,16 +214,54 @@ namespace WindowsFormsApp1
             return curRow;
         }
 
-        private void colorBox(int curBox, Color color)
+        private void resetMap(Color color)
         {
+            for(int i = 0; i < 4; i++)
+            {
+                for(int j=0; j < 4; j++)
+                {
+                    if (map.grid[i, j] != 'X')
+                    {
+                        colorBox(i, j, color);
+                    }
+                }
+            }
+        }
 
+        private void colorBox(int row,int column, Color color)
+        {
+            dataGridView1.Rows[row].Cells[column].Style.BackColor = color;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //colorMap(solution.Length, Color.White);
+            resetMap(Color.White);
+            if (method == "DFS")
+            {
+                Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+            }
+            else if(method == "BFS")
+            {
+                Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
+            }
             trackBar1.Visible = true;
-            trackBar1.Maximum = path.Length;
+            trackBar1.Maximum = solution.Length;
+            trackBar1.Value = 0;
             trackBar1.Value = trackBar1.Maximum;
+
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+
+            label3.Text = "Path : ";
+            foreach(char c in solution)
+            {
+                label3.Text += c;
+                label3.Text += " ";
+            }
+            label4.Text = "Number of node : " + cntNode;
+            label5.Text = "Time executed : " + timeExec + " ms";
             //colorMap(path.Length, Color.Green);
         }
 
@@ -220,13 +272,13 @@ namespace WindowsFormsApp1
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            colorMap(path.Length,Color.White);
+            colorMap(solution.Length,Color.White);
             int curBox=colorMap(trackBar1.Value, Color.SteelBlue);
             if(trackBar1.Value > 0)
             {
                 colorMap(trackBar1.Value-1, Color.Khaki);
             }
-            colorBox(curBox, Color.SteelBlue);
+            //colorBox(curBox, Color.SteelBlue);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -327,6 +379,21 @@ namespace WindowsFormsApp1
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             dataGridView1.ClearSelection();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

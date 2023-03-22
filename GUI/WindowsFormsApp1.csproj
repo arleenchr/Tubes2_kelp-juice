@@ -9,6 +9,8 @@
     <RootNamespace>WindowsFormsApp1</RootNamespace>
     <AssemblyName>WindowsFormsApp1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -46,12 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BFS.cs" />
+    <Compile Include="DFS.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -59,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Solver.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,24 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="6654537.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="map.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="map2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="title.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="buttonSmall.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\6654537.jpg" />
