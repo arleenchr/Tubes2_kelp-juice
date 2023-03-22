@@ -11,7 +11,6 @@ namespace Solver
     {
         public static void BFS(Map map, ref string sol, ref int num_node, ref List<PointDir> pathPoints, ref long timeExec)
         {
-            cntNode = 0;
             string solution = ""; // solution path
             allTreasureFound = false;
             numOfTreasure = map.numOfTreasure;
@@ -36,7 +35,6 @@ namespace Solver
 
             while (!allTreasureFound && queue.Count > 0)
             {
-                cntNode += 1; // node check
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
@@ -101,6 +99,7 @@ namespace Solver
             // stop watch
             watch.Stop();
 
+            cntNode = pathPoints.Count + 1;
             num_node = cntNode;
             sol = solution;
             timeExec = watch.ElapsedMilliseconds;
@@ -109,7 +108,6 @@ namespace Solver
         public static void BFSOneTreasure(Map map, Point start, ref Point treasurePosition, ref string sol, ref int num_node, ref List<PointDir> pathPoints)
         {
             // search for one treasure only
-            cntNode = 0;
             string solution = ""; // solution path
             bool isTreasureFound = false;
             numOfTreasure = map.numOfTreasure;
@@ -130,7 +128,6 @@ namespace Solver
 
             while (!isTreasureFound && queue.Count > 0)
             {
-                cntNode += 1; // node check
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
@@ -178,6 +175,7 @@ namespace Solver
                 currentCol = currentPoint.colId;
             }
 
+            cntNode = pathPoints.Count + 1;
             num_node = cntNode;
             sol = solution;
         }

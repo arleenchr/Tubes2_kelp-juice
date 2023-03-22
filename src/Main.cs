@@ -1,4 +1,4 @@
-using Solver;
+/*using Solver;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +25,7 @@ public class Program
             // long timeExec = 0;
 
             // List<PointDir> points = new List<PointDir>() { };
-            /*
+            
             Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
             Console.WriteLine("DFS");
             Console.WriteLine("Nodes: " + cntNode);
@@ -35,7 +35,7 @@ public class Program
             foreach (char c in solution)
             {
                 Console.Write(c + " ");
-            }*/
+            }
 
             //Console.WriteLine();
             // Console.WriteLine("BFS");
@@ -66,4 +66,4 @@ public class Program
 
 
     }
-}
+}*/
