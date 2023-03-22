@@ -25,6 +25,9 @@ namespace WindowsFormsApp1
         private PrivateFontCollection fonts = new PrivateFontCollection();
 
         Font myFont;
+        Font myFont2;
+        Font myFont3;
+        Font myFont4;
 
         string path = "RDDRRU";
         string buttonImagePath = @"..\..\resources\button1.png";
@@ -41,6 +44,7 @@ namespace WindowsFormsApp1
         string button4PressImagePath = @"..\..\resources\button4pressed.png";
         string mapImagePath = @"..\..\resources\map.png";
         string titleImagePath = @"..\..\resources\title.png";
+        bool mapExist = false;
 
         string solution = "";
         int cntNode = 0;
@@ -78,6 +82,31 @@ namespace WindowsFormsApp1
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
 
             myFont = new Font(fonts.Families[0], 24.0F);
+            //myFont = new Font(myFont, FontStyle.Bold);
+
+            byte[] fontData2 = Properties.Resources.FranxurterTotally;
+            IntPtr fontPtr2 = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData2.Length);
+            System.Runtime.InteropServices.Marshal.Copy(fontData2, 0, fontPtr2, fontData2.Length);
+            uint dummy2 = 0;
+            fonts.AddMemoryFont(fontPtr2, Properties.Resources.FranxurterTotally.Length);
+            AddFontMemResourceEx(fontPtr2, (uint)Properties.Resources.FranxurterTotally.Length, IntPtr.Zero, ref dummy2);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr2);
+
+            myFont2 = new Font(fonts.Families[0], 26.0F);
+            myFont2 = new Font(myFont2, FontStyle.Bold);
+            label1.Font= myFont2;
+
+            myFont3 = new Font(fonts.Families[0], 30.0F);
+            myFont3 = new Font(myFont3, FontStyle.Bold);
+            radioButton1.Font= myFont3;
+            radioButton2.Font= myFont3;
+            radioButton3.Font= myFont3;
+
+            myFont4 = new Font(fonts.Families[0], 22.0F);
+            myFont4 = new Font(myFont4, FontStyle.Bold);
+            label3.Font= myFont4;
+            label4.Font= myFont4;
+            label5.Font= myFont4;
         }
 
 
@@ -119,6 +148,7 @@ namespace WindowsFormsApp1
                 trackBar1.Visible = false;
                 button3.Visible = false;
                 button4.Visible = false;
+                mapExist = true;
 
                 string filename = ofd.FileName;
                 foreach(char c in filename)
@@ -184,11 +214,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private int colorMap(int end, Color color)
         {
             if (startRow == -1) return 0;
@@ -237,6 +262,27 @@ namespace WindowsFormsApp1
                 }
             }
         }
+        private void checkStars()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (map.grid[i, j] == 'T')
+                    {
+                        if (dataGridView1.Rows[i].Cells[j].Style.BackColor == Color.White)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = "c";
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = "d";
+                        }
+
+                    }
+                }
+            }
+        }
 
         private void colorBox(int row,int column, Color color)
         {
@@ -245,41 +291,42 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //colorMap(solution.Length, Color.White);
-            resetMap(Color.White);
-            if (method == "DFS")
+            if (mapExist)
             {
-                Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+                //colorMap(solution.Length, Color.White);
+                resetMap(Color.White);
+                checkStars();
+                if (method == "DFS")
+                {
+                    Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+                }
+                else if (method == "BFS")
+                {
+                    Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
+                }
+                trackBar1.Visible = true;
+                trackBar1.Maximum = solution.Length;
+                trackBar1.Value = 0;
+                trackBar1.Value = trackBar1.Maximum;
+
+                label3.Visible = true;
+                label4.Visible = true;
+                label5.Visible = true;
+                button3.Visible = true;
+                button4.Visible = true;
+
+                label3.Text = "Path : ";
+                foreach (char c in solution)
+                {
+                    label3.Text += c;
+                    label3.Text += " ";
+                }
+                label4.Text = "Number of node : " + cntNode;
+                label5.Text = "Time executed : " + timeExec + " ms";
+
+                
+                //colorMap(path.Length, Color.Green);
             }
-            else if(method == "BFS")
-            {
-                Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
-            }
-            trackBar1.Visible = true;
-            trackBar1.Maximum = solution.Length;
-            trackBar1.Value = 0;
-            trackBar1.Value = trackBar1.Maximum;
-
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            button3.Visible = true;
-            button4.Visible = true;
-
-            label3.Text = "Path : ";
-            foreach(char c in solution)
-            {
-                label3.Text += c;
-                label3.Text += " ";
-            }
-            label4.Text = "Number of node : " + cntNode;
-            label5.Text = "Time executed : " + timeExec + " ms";
-            //colorMap(path.Length, Color.Green);
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -288,8 +335,9 @@ namespace WindowsFormsApp1
             int curBox=colorMap(trackBar1.Value, Color.SteelBlue);
             if(trackBar1.Value > 0)
             {
-                colorMap(trackBar1.Value-1, Color.Khaki);
+                colorMap(trackBar1.Value-1, Color.FromArgb(239,228,176));
             }
+            checkStars();
             //colorBox(curBox, Color.SteelBlue);
         }
 
@@ -322,6 +370,10 @@ namespace WindowsFormsApp1
 
         }
 
+
+        // ........................................
+        // CODE BELOW ARE MADE FOR DESIGN PURPOSES
+        // ........................................
         private void button1_MouseEnter(object sender, EventArgs e)
         {
             button1.BackgroundImage = Image.FromFile(buttonHoverImagePath);
@@ -366,21 +418,6 @@ namespace WindowsFormsApp1
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             dataGridView1.ClearSelection();
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button3_Click(object sender, EventArgs e)

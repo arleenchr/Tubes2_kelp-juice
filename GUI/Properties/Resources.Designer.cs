@@ -63,6 +63,16 @@ namespace WindowsFormsApp1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] FranxurterTotally {
+            get {
+                object obj = ResourceManager.GetObject("FranxurterTotally", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] icomoon {
             get {
                 object obj = ResourceManager.GetObject("icomoon", resourceCulture);

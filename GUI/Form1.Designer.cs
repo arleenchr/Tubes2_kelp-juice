@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.button2 = new System.Windows.Forms.Button();
@@ -104,7 +104,6 @@
             this.trackBar1.TabIndex = 20;
             this.trackBar1.TabStop = false;
             this.trackBar1.Visible = false;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // radioButton1
@@ -112,11 +111,11 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.BackColor = System.Drawing.Color.Transparent;
             this.radioButton1.Checked = true;
-            this.radioButton1.Font = new System.Drawing.Font("Poppins Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.Font = new System.Drawing.Font("Franxurter Totally Medium", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.ForeColor = System.Drawing.SystemColors.Control;
             this.radioButton1.Location = new System.Drawing.Point(128, 492);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(129, 74);
+            this.radioButton1.Size = new System.Drawing.Size(118, 53);
             this.radioButton1.TabIndex = 21;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "DFS";
@@ -127,11 +126,11 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.BackColor = System.Drawing.Color.Transparent;
-            this.radioButton2.Font = new System.Drawing.Font("Poppins Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton2.Font = new System.Drawing.Font("Franxurter Totally Medium", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton2.ForeColor = System.Drawing.SystemColors.Control;
             this.radioButton2.Location = new System.Drawing.Point(128, 548);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(126, 74);
+            this.radioButton2.Size = new System.Drawing.Size(115, 53);
             this.radioButton2.TabIndex = 22;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "BFS";
@@ -142,11 +141,11 @@
             // 
             this.radioButton3.AutoSize = true;
             this.radioButton3.BackColor = System.Drawing.Color.Transparent;
-            this.radioButton3.Font = new System.Drawing.Font("Poppins Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton3.Font = new System.Drawing.Font("Franxurter Totally Medium", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton3.ForeColor = System.Drawing.SystemColors.Control;
             this.radioButton3.Location = new System.Drawing.Point(127, 604);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(127, 74);
+            this.radioButton3.Size = new System.Drawing.Size(115, 53);
             this.radioButton3.TabIndex = 23;
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "TSP";
@@ -169,11 +168,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Poppins Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Franxurter Totally Medium", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(145, 92);
+            this.label1.Location = new System.Drawing.Point(132, 98);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 106);
+            this.label1.Size = new System.Drawing.Size(239, 86);
             this.label1.TabIndex = 25;
             this.label1.Text = "Map chosen:\r\nNone";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -187,22 +186,22 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ColumnHeadersVisible = false;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("icomoon", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("icomoon", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(190)))), ((int)(((byte)(150)))));
             this.dataGridView1.Location = new System.Drawing.Point(674, 123);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle22.Padding = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle14.Padding = new System.Windows.Forms.Padding(2);
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView1.RowTemplate.DividerHeight = 5;
             this.dataGridView1.RowTemplate.Height = 85;
             this.dataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -216,43 +215,40 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Poppins Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Franxurter Totally Medium", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label3.Location = new System.Drawing.Point(593, 699);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 53);
+            this.label3.Size = new System.Drawing.Size(101, 36);
             this.label3.TabIndex = 28;
             this.label3.Text = "Path :";
             this.label3.Visible = false;
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Poppins Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Franxurter Totally Medium", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(593, 739);
+            this.label4.Location = new System.Drawing.Point(593, 740);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(287, 53);
+            this.label4.Size = new System.Drawing.Size(278, 36);
             this.label4.TabIndex = 29;
             this.label4.Text = "Number of Node :";
             this.label4.Visible = false;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Poppins Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Franxurter Totally Medium", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(593, 778);
+            this.label5.Location = new System.Drawing.Point(593, 779);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(283, 53);
+            this.label5.Size = new System.Drawing.Size(266, 36);
             this.label5.TabIndex = 30;
             this.label5.Text = "Execution Time : ";
             this.label5.Visible = false;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button3
             // 
@@ -263,9 +259,9 @@
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(1216, 622);
+            this.button3.Location = new System.Drawing.Point(1212, 622);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(106, 95);
+            this.button3.Size = new System.Drawing.Size(98, 103);
             this.button3.TabIndex = 31;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
@@ -284,9 +280,9 @@
             this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(487, 622);
+            this.button4.Location = new System.Drawing.Point(495, 622);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 95);
+            this.button4.Size = new System.Drawing.Size(98, 103);
             this.button4.TabIndex = 32;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Visible = false;
