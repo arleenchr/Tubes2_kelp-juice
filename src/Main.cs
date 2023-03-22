@@ -8,7 +8,7 @@ public class Program
     {
         try
         {
-            Map map = Solver.Parser.parse("a.txt");
+            Map map = Solver.Parser.parse("sampel-1.txt");
 
             for (int i = 0; i < map.rows; i++)
             {
@@ -24,9 +24,9 @@ public class Program
             // int cntNode = 0;
             // long timeExec = 0;
 
-            // List<PointDir> points = new List<PointDir>() { };
+            // List<Point> pathPoints = new List<Point>() { };
             
-            Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+            Solver.DFSSolver.CallDFS(map, ref solution, ref cntNode, ref pathPoints, ref timeExec);
             Console.WriteLine("DFS");
             Console.WriteLine("Nodes: " + cntNode);
             Console.WriteLine("Steps: " + solution.Length);
@@ -35,6 +35,11 @@ public class Program
             foreach (char c in solution)
             {
                 Console.Write(c + " ");
+            }
+            Console.WriteLine("\nPath points: );
+            foreach (point in pathPoints)
+            {
+                Console.WriteLine("(" + point.rowId + ", " + point.colId + ")");
             }
 
             //Console.WriteLine();

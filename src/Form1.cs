@@ -298,7 +298,7 @@ namespace WindowsFormsApp1
                 checkStars();
                 if (method == "DFS")
                 {
-                    Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+                    Solver.DFSSolver.CallDFS(map, ref solution, ref cntNode, ref timeExec);
                 }
                 else if (method == "BFS")
                 {

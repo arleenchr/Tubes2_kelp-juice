@@ -31,7 +31,7 @@
             }
         }
 
-        public static void callDFS(Map _map, ref string _solution, ref int _cntNode, ref List<Point> _pathPoints, ref long timeExec)
+        public static void CallDFS(Map _map, ref string _solution, ref int _cntNode, ref List<Point> _pathPoints, ref long timeExec)
         {
             cntNode = 0;
             allTreasureFound = false;

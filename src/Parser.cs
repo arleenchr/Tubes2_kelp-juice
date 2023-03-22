@@ -2,7 +2,7 @@ namespace Solver
 {
     public class Parser
     {
-        static bool validate(char[,] grid)
+        static bool Validate(char[,] grid)
         {
             for (int i = 0; i < grid.GetLength(0); i++)
             {
@@ -15,7 +15,7 @@ namespace Solver
             }
             return true;
         }
-        public static Map parse(string userFileName)
+        public static Map Parse(string userFileName)
         {
             string directoryPath = "..\\test";
             userFileName = "..\\test\\" + userFileName;
@@ -50,7 +50,7 @@ namespace Solver
                 }
             }
 
-            if (!validate(grid)) throw new InvalidDataException("File tidak valid!");
+            if (!Validate(grid)) throw new InvalidDataException("File tidak valid!");
             return new Map(grid);
         }
     }
