@@ -33,9 +33,12 @@ namespace WindowsFormsApp1
         string button2ImagePath = @"..\..\resources\button2.png";
         string button2HoverImagePath = @"..\..\resources\button2hover.png";
         string button2PressImagePath = @"..\..\resources\button2pressed.png";
-        string button3ImagePath = @"..\..\resources\buttonSmall.png";
-        string button3HoverImagePath = @"..\..\resources\buttonSmallHover.png";
-        string button3PressImagePath = @"..\..\resources\buttonSmallPressed.png";
+        string button3ImagePath = @"..\..\resources\button3.png";
+        string button3HoverImagePath = @"..\..\resources\button3hover.png";
+        string button3PressImagePath = @"..\..\resources\button3pressed.png";
+        string button4ImagePath = @"..\..\resources\button4.png";
+        string button4HoverImagePath = @"..\..\resources\button4hover.png";
+        string button4PressImagePath = @"..\..\resources\button4pressed.png";
         string mapImagePath = @"..\..\resources\map.png";
         string titleImagePath = @"..\..\resources\title.png";
 
@@ -57,21 +60,6 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            button1.BackgroundImage = Image.FromFile(buttonImagePath);
-            button1.BackColor = Color.Transparent;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button1.ForeColor = System.Drawing.Color.White;
-
-            button2.BackgroundImage = Image.FromFile(button2ImagePath);
-            button2.BackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button2.ForeColor = System.Drawing.Color.White;
 
             pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox17.BackColor = Color.Transparent;
@@ -128,7 +116,9 @@ namespace WindowsFormsApp1
                 label3.Visible = false;
                 label4.Visible = false;
                 label5.Visible = false;
-                trackBar1.Visible=false;
+                trackBar1.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
 
                 string filename = ofd.FileName;
                 foreach(char c in filename)
@@ -273,6 +263,8 @@ namespace WindowsFormsApp1
             label3.Visible = true;
             label4.Visible = true;
             label5.Visible = true;
+            button3.Visible = true;
+            button4.Visible = true;
 
             label3.Text = "Path : ";
             foreach(char c in solution)
@@ -318,31 +310,6 @@ namespace WindowsFormsApp1
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             method = "TSP";
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -414,6 +381,62 @@ namespace WindowsFormsApp1
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (trackBar1.Value != trackBar1.Maximum)
+            {
+                trackBar1.Value++;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(trackBar1.Value != 0)
+            {
+                trackBar1.Value--;
+            }
+        }
+
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            button3.BackgroundImage=Image.FromFile(button3HoverImagePath);
+        }
+
+        private void button3_MouseDown(object sender, MouseEventArgs e)
+        {
+            button3.BackgroundImage= Image.FromFile(button3PressImagePath);
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            button3.BackgroundImage = Image.FromFile(button3ImagePath);
+        }
+
+        private void button3_MouseUp(object sender, MouseEventArgs e)
+        {
+            button3.BackgroundImage = Image.FromFile(button3ImagePath);
+        }
+
+        private void button4_MouseLeave(object sender, EventArgs e)
+        {
+            button4.BackgroundImage = Image.FromFile(button4ImagePath);
+        }
+
+        private void button4_MouseUp(object sender, MouseEventArgs e)
+        {
+            button4.BackgroundImage = Image.FromFile(button4ImagePath);
+        }
+
+        private void button4_MouseDown(object sender, MouseEventArgs e)
+        {
+            button4.BackgroundImage = Image.FromFile(button4PressImagePath);
+        }
+
+        private void button4_MouseEnter(object sender, EventArgs e)
+        {
+            button4.BackgroundImage = Image.FromFile(button4HoverImagePath);
         }
     }
 }
