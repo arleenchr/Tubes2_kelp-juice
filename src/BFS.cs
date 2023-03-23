@@ -106,80 +106,72 @@ namespace Solver
             timeExec = watch.ElapsedMilliseconds;
         }
 
-        public static void BFSOneTreasure(Map map, Point start, ref Point treasurePosition, ref string sol, ref int num_node, ref List<Point> pathPoints)
+        public static void BFSOneGoal(Map map, Point start, Point end, ref string solution, ref List<Point> _pathPoints)
         {
-            // search for one treasure only
-            string solution = ""; // solution path
-            bool isTreasureFound = false;
-            numOfTreasure = map.numOfTreasure;
-
+            int curRow, curCol;
             visited = new bool[map.rows, map.cols]; // is-visited info
+            char[,] from = new char[map.rows, map.cols];
+            Queue<Point> queue = new Queue<Point>(); // queue of to-be-visited nodes (queue of Point)
+            List<Point> pathPoints = new List<Point>();
 
-            Queue<Point> queue = new Queue<Point> { }; // queue of to-be-visited nodes (queue of Point)
+            queue.Enqueue(new Point(start.rowId, start.colId)); // add first position to queue
+            visited[start.rowId, start.colId] = true;
+            from[start.rowId, start.colId] = 'X';
 
-            List<PointDir> pathPointDir = new List<PointDir>() { }; // list of PointDir
-
-            List<Point> treasurePicked = new List<Point>() { }; // list of treasure picked 
-
-            int currentRow = start.rowId;
-            int currentCol = start.colId;
-            int tempStartRow = currentRow;
-            int tempStartCol = currentCol;
-            queue.Enqueue(new Point(currentRow, currentCol)); // add first position to queue
-            pathPointDir.Add(new PointDir(currentRow, currentCol, -1)); // add first point to solution (x,y,direction index=-1)
-
-            while (!isTreasureFound && queue.Count > 0)
+            while (queue.Count > 0)
             {
-                visited[currentRow, currentCol] = true; // visited
+                curRow = queue.Peek().rowId;
+                curCol = queue.Peek().colId;
                 queue.Dequeue(); // dequeue
 
-                if (numOfTreasure == 0)
+                pathPoints.Add(new Point(curRow, curCol));
+
+                if (curRow == end.rowId && curCol == end.colId)
                 {
-                    isTreasureFound = true; // all treasure found
                     break;
                 }
 
                 // visit node (direction priority: RLDU)
                 for (int i = 0; i < 4; i++)
                 {
-                    int newRow = currentRow + dy[i];
-                    int newCol = currentCol + dx[i];
+                    int newRow = curRow + dy[i];
+                    int newCol = curCol + dx[i];
                     if (newRow < 0 || newRow >= map.rows || newCol < 0 || newCol >= map.cols ||
-                        visited[newRow, newCol] || map.grid[newRow, newCol] == 'X' || allTreasureFound)
+                        visited[newRow, newCol] || map.grid[newRow, newCol] == 'X')
                     {
                         // won't be visited
                         continue;
                     }
                     // else
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
-                    pathPointDir.Add(new PointDir(newRow, newCol, i)); // add to solution (x,y,direction index)
-                    visited[newRow, newCol] = true; // visited
-
-                    if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.rowId == newRow && p.colId == newCol) == -1)
-                    {
-                        // mark picked
-                        numOfTreasure--; // treasure found
-                        treasurePicked.Add(new Point(newRow, newCol));
-
-                        // create path
-                        createPath(pathPointDir, tempStartRow, tempStartCol, ref solution);
-
-                        // return
-                        treasurePosition.rowId = newRow; // set new start point
-                        treasurePosition.colId = newCol; // set new start point
-                        return;
-                    }
+                    visited[newRow, newCol] = true;
+                    from[newRow, newCol] = direction[i];
                 }
-
-                // next
-                Point currentPoint = queue.Peek();
-                currentRow = currentPoint.rowId;
-                currentCol = currentPoint.colId;
             }
-            pathPoints = convertPathPoints(pathPointDir);
-            cntNode = pathPoints.Count;
-            num_node = cntNode;
-            sol = solution;
+            curRow = end.rowId; curCol = end.colId;
+            while (from[curRow, curCol] != 'X')
+            {
+                solution = from[curRow, curCol] + solution;
+                switch (from[curRow, curCol])
+                {
+                    case 'R':
+                        curCol--;
+                        break;
+                    case 'L':
+                        curCol++;
+                        break;
+                    case 'D':
+                        curRow--;
+                        break;
+                    case 'U':
+                        curRow++;
+                        break;
+                    default:
+                        Console.WriteLine("Direction undefined!");
+                        break;
+                }
+            }
+            _pathPoints = pathPoints;
         }
 
         public static void createPath(List<PointDir> pathPoints, int tempStartRow, int tempStartCol, ref string solution)

@@ -1,4 +1,6 @@
-﻿namespace Solver
+﻿using System.Collections.Generic;
+
+namespace Solver
 {
     public class Map
     {
@@ -8,6 +10,7 @@
         public int cols { get; set; } // column count
         public Point start { get; set; } // starting point (row,col)
         public int numOfTreasure { get; set; } // treasure count
+        public List<Point> treasureLoc { get; set; } = new List<Point>(); // treasure location
 
         /* methods */
         /* constructor */
@@ -29,6 +32,7 @@
                     else if (grid[i, j] == 'T')
                     {
                         numOfTreasure++;
+                        treasureLoc.Add(new Point(i, j));
                     }
                 }
             }

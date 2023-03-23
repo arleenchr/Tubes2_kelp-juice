@@ -1,6 +1,7 @@
-/*using Solver;
+using Solver;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 public class Program
 {
@@ -8,8 +9,7 @@ public class Program
     {
         try
         {
-            Map map = Solver.Parser.parse("sampel-1.txt");
-
+            Map map = Solver.Parser.Parse("sampel-1.txt");
             for (int i = 0; i < map.rows; i++)
             {
                 for (int j = 0; j < map.cols; j++)
@@ -20,27 +20,26 @@ public class Program
             }
             Console.WriteLine("Num of treasures: " + map.numOfTreasure);
 
-            // string solution = "";
-            // int cntNode = 0;
-            // long timeExec = 0;
+            string solution = "";
+            int cntNode = 0;
+            long timeExec = 0;
+            List<Point> pathPoints = new List<Point>();
 
-            // List<Point> pathPoints = new List<Point>() { };
-            
-            Solver.DFSSolver.CallDFS(map, ref solution, ref cntNode, ref pathPoints, ref timeExec);
-            Console.WriteLine("DFS");
-            Console.WriteLine("Nodes: " + cntNode);
-            Console.WriteLine("Steps: " + solution.Length);
-            Console.WriteLine("Time Exec: " + timeExec + " ms");
-            Console.Write("Route: ");
-            foreach (char c in solution)
-            {
-                Console.Write(c + " ");
-            }
-            Console.WriteLine("\nPath points: );
-            foreach (point in pathPoints)
-            {
-                Console.WriteLine("(" + point.rowId + ", " + point.colId + ")");
-            }
+            // Solver.DFSSolver.callDFS(map, ref solution, ref cntNode, ref timeExec);
+            // Console.WriteLine("DFS");
+            // Console.WriteLine("Nodes: " + cntNode);
+            // Console.WriteLine("Steps: " + solution.Length);
+            // Console.WriteLine("Time Exec: " + timeExec + " ms");
+            // Console.Write("Route: ");
+            // foreach (char c in solution)
+            // {
+            //     Console.Write(c + " ");
+            // }
+            // Console.WriteLine("\nPath points: );
+            // foreach (point in pathPoints)
+            // {
+            //     Console.WriteLine("(" + point.rowId + ", " + point.colId + ")");
+            // }
 
             //Console.WriteLine();
             // Console.WriteLine("BFS");
@@ -58,6 +57,9 @@ public class Program
             // {
             //     Console.WriteLine(string.Format("({0},{1}), direction index = {2}", p.rowId, p.colId, p.direction));
             // }
+
+            Console.WriteLine("\nTSP");
+            Solver.TSPSolver.CallTSP(map, ref solution, ref cntNode, ref pathPoints, ref timeExec);
         }
         catch (FileNotFoundException ex)
         {
@@ -71,4 +73,4 @@ public class Program
 
 
     }
-}*/
+}
