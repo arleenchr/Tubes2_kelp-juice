@@ -105,6 +105,7 @@ namespace WindowsFormsApp1
 
             myFont3 = new Font(fonts.Families[0], 30.0F);
             myFont3 = new Font(myFont3, FontStyle.Bold);
+            checkBox1.Font= myFont3;
             radioButton1.Font= myFont3;
             radioButton2.Font= myFont3;
 
