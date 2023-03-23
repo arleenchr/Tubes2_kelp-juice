@@ -109,10 +109,12 @@ namespace WindowsFormsApp1
             radioButton2.Font= myFont3;
 
             myFont4 = new Font(fonts.Families[0], 22.0F);
-            myFont4 = new Font(myFont4, FontStyle.Bold);
-            label3.Font= myFont4;
+            myFont4 = new Font(myFont4, FontStyle.Regular);
+            label3.Font= myFont2;
+            label2.Font = myFont4;
             label4.Font= myFont4;
             label5.Font= myFont4;
+            label6.Font= myFont4;
         }
 
 
@@ -133,140 +135,121 @@ namespace WindowsFormsApp1
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            bool failOpen = false;
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.Filter = "Text files (*.txt)|*.txt|All Files (*.*)|*.*";
 
             if(ofd.ShowDialog() == DialogResult.OK)
             {
-                label3.Visible = false;
-                label4.Visible = false;
-                label5.Visible = false;
-                trackBar1.Visible = false;
-                button3.Visible = false;
-                button4.Visible = false;
-                mapExist = true;
-
                 string filename = ofd.FileName;
-
-                foreach(char c in filename)
-                {
-                    if (c == '\\')
-                        label1.Text = "Map chosen : \n";
-                    else
-                    {
-                        label1.Text += c;
-                    }
-                }
                 try
                 {
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    label4.Visible = false;
+                    label5.Visible = false;
+                    label6.Visible = false;
+                    trackBar1.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    checkBox2.Visible = false;
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear();
+                    dataGridView1.Refresh();
                     map = Parser.Parse(filename);
                 }
                 catch (Exception ex)
                 {
-                    //map not valid!!
+                    failOpen = true;
                 }
-                
 
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-                dataGridView1.Refresh();
-                fillData();
-                dataGridView1.Visible = true;
-
-                for(int i=0;i<map.rows;i++)
+                if (!failOpen)
                 {
-                    int rowId = dataGridView1.Rows.Add();
+                    /*
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    label4.Visible = false;
+                    label5.Visible = false;
+                    label6.Visible = false;
+                    trackBar1.Visible = false;
+                    button3.Visible = false;
+                    button4.Visible = false;
+                    checkBox2.Visible = false;
+                    */
+                    mapExist = true;
 
-                    DataGridViewRow row = dataGridView1.Rows[rowId];
 
-                    for(int k = 0; k < map.cols; k++)
+                    foreach (char c in filename)
                     {
-                        char c = map.grid[i, k];
-                        if (c == 'K')
+                        if (c == '\\')
+                            label1.Text = "Map chosen : \n";
+                        else
                         {
-                            //row.Cells[j].Value = Image.FromFile(startImagePath);
-                            row.Cells[k].Value = "b";
+                            label1.Text += c;
+                        }
+                    }
 
-                            startColumn = k;
-                            startRow = i;
-                        }
-                        else if (c == 'R')
-                        {
-                            row.Cells[k].Value = "";
-                        }
-                        else if (c == 'T')
-                        {
-                            row.Cells[k].Value = "c";
-                            num_treasure++;
-                        }
-                        else if (c == 'X')
-                        {
-                            row.Cells[k].Value = "";
-                            row.Cells[k].Style.BackColor = Color.FromArgb(217, 190, 150);
 
+                    /*
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear();
+                    dataGridView1.Refresh();
+                    */
+                    fillData();
+                    dataGridView1.Visible = true;
+
+                    for (int i = 0; i < map.rows; i++)
+                    {
+                        int rowId = dataGridView1.Rows.Add();
+
+                        DataGridViewRow row = dataGridView1.Rows[rowId];
+
+                        for (int k = 0; k < map.cols; k++)
+                        {
+                            char c = map.grid[i, k];
+                            if (c == 'K')
+                            {
+                                //row.Cells[j].Value = Image.FromFile(startImagePath);
+                                row.Cells[k].Value = "b";
+
+                                startColumn = k;
+                                startRow = i;
+                            }
+                            else if (c == 'R')
+                            {
+                                row.Cells[k].Value = "";
+                            }
+                            else if (c == 'T')
+                            {
+                                row.Cells[k].Value = "c";
+                                num_treasure++;
+                            }
+                            else if (c == 'X')
+                            {
+                                row.Cells[k].Value = "";
+                                row.Cells[k].Style.BackColor = Color.FromArgb(217, 190, 150);
+
+                            }
                         }
                     }
                 }
-                /*
-                foreach (string lines in File.ReadAllLines(ofd.FileName))
+                else
                 {
-                    int rowId = dataGridView1.Rows.Add();
-
-                    DataGridViewRow row = dataGridView1.Rows[rowId];
-
-                    int j = 0;
-                    foreach(char c in lines)
-                    {
-                        if (c == 'K')
-                        {
-                            //row.Cells[j].Value = Image.FromFile(startImagePath);
-                            row.Cells[j].Value = "b";
-                           
-                            startColumn = j;
-                            startRow = i;
-                            j++;
-                        }
-                        else if (c == 'R')
-                        {
-                            row.Cells[j].Value = "";
-
-                            j++;
-                        }
-                        else if (c == 'T')
-                        {
-                            row.Cells[j].Value = "c";
-
-                            j++;
-                            num_treasure++;
-                        }
-                        else if (c == 'X')
-                        {
-                            row.Cells[j].Value = "";
-
-                            row.Cells[j].Style.BackColor = Color.FromArgb(217, 190, 150);
-                            j++;
-
-                        }
-                    }
-                    i++;
-                
+                    label1.Text = "Map chosen :\nMap invalid!";
                 }
-                */
-
-                
             }
         }
 
-        private int colorMap(int end, Color color)
+        private void colorPath(int end, Color color)
         {
-            if (startRow == -1) return 0;
+            if (startRow == -1) return;
             dataGridView1.Rows[startRow].Cells[startColumn].Style.BackColor = color;
 
             int curRow = startRow;
             int curColumn = startColumn;
 
-            for (int i=0;i<end; i++)
+            for (int i = 0; i < end; i++)
             {
                 char c = solution[i];
                 if (c == 'R')
@@ -290,14 +273,51 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
             }
-            return curRow;
+        }
+        private void colorMap(int end, Color color)
+        {
+            if (startRow == -1) return ;
+            dataGridView1.Rows[startRow].Cells[startColumn].Style.BackColor = color;
+
+            int curRow = startRow;
+            int curColumn = startColumn;
+
+            for (int i=0;i<end; i++)
+            {
+                Solver.Point p = points[i];
+
+                colorBox(p, color);
+                /*
+                char c = solution[i];
+                if (c == 'R')
+                {
+                    curColumn++;
+                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
+                }
+                else if (c == 'L')
+                {
+                    curColumn--;
+                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
+                }
+                else if (c == 'U')
+                {
+                    curRow--;
+                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
+                }
+                else if (c == 'D')
+                {
+                    curRow++;
+                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
+                }
+                */
+            }
         }
 
         private void resetMap(Color color)
         {
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < map.rows; i++)
             {
-                for(int j=0; j < 4; j++)
+                for(int j=0; j < map.cols; j++)
                 {
                     if (map.grid[i, j] != 'X')
                     {
@@ -308,9 +328,9 @@ namespace WindowsFormsApp1
         }
         private void checkStars()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < map.rows; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < map.cols; j++)
                 {
                     if (map.grid[i, j] == 'T')
                     {
@@ -332,6 +352,10 @@ namespace WindowsFormsApp1
         {
             dataGridView1.Rows[row].Cells[column].Style.BackColor = color;
         }
+        private void colorBox(Solver.Point point, Color color)
+        {
+            dataGridView1.Rows[point.rowId].Cells[point.colId].Style.BackColor = color;
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -348,16 +372,24 @@ namespace WindowsFormsApp1
                 {
                    Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref points, ref timeExec);
                 }
+                checkBox2.Checked = false;
+                resetMap(Color.White);
+                colorPath(solution.Length, Color.FromArgb(89, 139, 93));
+                checkStars();
+                /*
                 trackBar1.Visible = true;
-                trackBar1.Maximum = solution.Length;
+                trackBar1.Maximum = points.Count;
                 trackBar1.Value = 0;
                 trackBar1.Value = trackBar1.Maximum;
+                */
 
+                label2.Visible = true;
                 label3.Visible = true;
                 label4.Visible = true;
                 label5.Visible = true;
-                button3.Visible = true;
-                button4.Visible = true;
+                label6.Visible = true;
+                
+                checkBox2.Visible = true;
 
                 label3.Text = "Path : ";
                 foreach (char c in solution)
@@ -365,8 +397,9 @@ namespace WindowsFormsApp1
                     label3.Text += c;
                     label3.Text += " ";
                 }
-                label4.Text = "Number of node checked : " + cntNode;
-                label5.Text = "Time executed : " + timeExec + " ms";
+                label4.Text = "Number\nof Node \nChecked:\n" + cntNode;
+                label5.Text = "Executed\nTime:\n" + timeExec + " ms";
+                label6.Text = "Path\nLength:\n" + solution.Length;
 
                 
                 //colorMap(path.Length, Color.Green);
@@ -375,14 +408,22 @@ namespace WindowsFormsApp1
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            colorMap(solution.Length,Color.White);
-            int curBox=colorMap(trackBar1.Value, Color.SteelBlue);
+            resetMap(Color.White);
+            //Point curBox=colorMap(trackBar1.Value, Color.SteelBlue);
             if(trackBar1.Value > 0)
             {
                 colorMap(trackBar1.Value-1, Color.FromArgb(239,228,176));
             }
+
+            int end = trackBar1.Value - 1;
+            if(end<0)
+            {
+                end = 0;
+            }
+            Solver.Point endpoint = points[end];
+            colorBox(endpoint, Color.SteelBlue);
+
             checkStars();
-            //colorBox(curBox, Color.SteelBlue);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -522,22 +563,12 @@ namespace WindowsFormsApp1
 
         private void checkBox1_MouseLeave(object sender, EventArgs e)
         {
-            if(checkBox1.Checked)
-            {
-                checkBox1.BackgroundImage = Image.FromFile(checkedImagePath);
-            }
-            else
-                checkBox1.BackgroundImage = Image.FromFile(uncheckedImagePath);
+            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
         }
 
         private void checkBox1_MouseEnter(object sender, EventArgs e)
         {
             checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
-        }
-
-        private void checkBox1_Click(object sender, EventArgs e)
-        {
-            //checkBox1.Checked = checkBox1.Checked ? true : false;
         }
 
         private void checkBox1_MouseDown(object sender, MouseEventArgs e)
@@ -551,6 +582,61 @@ namespace WindowsFormsApp1
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_MouseEnter(object sender, EventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
+        }
+
+        private void checkBox2_MouseLeave(object sender, EventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+        }
+
+        private void checkBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedPressImagePath) : Image.FromFile(uncheckedPressImagePath);
+        }
+
+        private void checkBox2_MouseUp(object sender, MouseEventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+            if (checkBox2.Checked)
+            {
+                trackBar1.Visible = true;
+                trackBar1.Maximum = points.Count;
+                trackBar1.Value = trackBar1.Maximum;
+                trackBar1.Value = 0;
+                
+                button3.Visible = true;
+                button4.Visible = true;
+            }
+            else
+            {
+                trackBar1.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
+
+                resetMap(Color.White);
+                colorPath(solution.Length, Color.FromArgb(89,139,93));
+                checkStars();
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            checkBox2.Checked = checkBox2.Checked ? false : true;
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
