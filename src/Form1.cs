@@ -238,7 +238,9 @@ namespace WindowsFormsApp1
                 }
                 else
                 {
-                    label1.Text = "Map chosen :\nMap invalid!";
+                    string text = "Map input is invalid!";
+                    MessageBox.Show(text);
+                    label1.Text = "Map chosen:\nNone";
                 }
             }
         }
