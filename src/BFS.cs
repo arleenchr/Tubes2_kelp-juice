@@ -100,47 +100,56 @@ namespace Solver
 
         public static void BFSOneGoal(Map map, Point start, Point end, ref string solution, ref List<Point> _pathPoints)
         {
+            // Initiate
             int curRow, curCol;
-            visited = new bool[map.rows, map.cols]; // is-visited info
+            visited = new bool[map.rows, map.cols];
             char[,] from = new char[map.rows, map.cols];
-            Queue<Point> queue = new Queue<Point>(); // queue of to-be-visited nodes (queue of Point)
+            Queue<Point> queue = new Queue<Point>();
             List<Point> pathPoints = new List<Point>();
 
-            queue.Enqueue(new Point(start.rowId, start.colId)); // add first position to queue
+            // Insert start point to the queue
+            queue.Enqueue(new Point(start.rowId, start.colId));
             visited[start.rowId, start.colId] = true;
             from[start.rowId, start.colId] = 'X';
 
             while (queue.Count > 0)
             {
+                // Get the top point of the queue then pop
                 curRow = queue.Peek().rowId;
                 curCol = queue.Peek().colId;
-                queue.Dequeue(); // dequeue
+                queue.Dequeue();
 
-                pathPoints.Add(new Point(curRow, curCol)); // add points
+                // Add point to the pathPoints
+                pathPoints.Add(new Point(curRow, curCol));
 
+                // Check if current point = end point
                 if (curRow == end.rowId && curCol == end.colId)
                 {
-                    break; // if reached the end point
+                    break;
                 }
 
-                // visit node (direction priority: RLDU)
+                // Visit possible node (direction priority: RLDU)
                 for (int i = 0; i < 4; i++)
                 {
                     int newRow = curRow + dy[i];
                     int newCol = curCol + dx[i];
+
+                    // Skip condition
                     if (newRow < 0 || newRow >= map.rows || newCol < 0 || newCol >= map.cols ||
                         visited[newRow, newCol] || map.grid[newRow, newCol] == 'X')
                     {
-                        continue; // won't be visited
-                    }
-                    // else
-                    queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
-                    visited[newRow, newCol] = true; // visited
+                        continue;
+                    }          
+                    
+                    // Add to the queue, set to visited, and from direction
+                    queue.Enqueue(new Point(newRow, newCol));
+                    visited[newRow, newCol] = true;
                     from[newRow, newCol] = direction[i];
                 }
             }
+
+            // create path (backtracking)
             curRow = end.rowId; curCol = end.colId;
-            // create path
             while (from[curRow, curCol] != 'X')
             {
                 solution = from[curRow, curCol] + solution;

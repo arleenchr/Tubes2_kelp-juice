@@ -19,20 +19,6 @@ namespace Solver
         }
         public static Map Parse(string userFileName)
         {
-            /*
-            string directoryPath = "..\\test";
-            userFileName = "..\\test\\" + userFileName;
-
-            string[] files = Directory.GetFiles(directoryPath);
-            bool foundFile = false;
-            foreach (string file in files)
-            {
-                if (file == userFileName)
-                    foundFile = true;
-            }
-
-            if (!foundFile) throw new FileNotFoundException("File tidak ditemukan!");
-            */
             char[,]? grid = null;
             using (StreamReader reader = new StreamReader(userFileName))
             {
