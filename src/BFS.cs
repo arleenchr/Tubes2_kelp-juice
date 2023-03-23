@@ -27,6 +27,7 @@ namespace Solver
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
+            // set current position
             int currentRow = map.start.rowId;
             int currentCol = map.start.colId;
             int tempStartRow = currentRow;
@@ -39,17 +40,6 @@ namespace Solver
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
-                if (map.grid[currentRow, currentCol] == 'T')
-                {
-                    /*numOfTreasure--; // treasure found
-                    treasurePicked.Add(new Point(currentRow, currentCol));
-                    Console.WriteLine("Treasure left: " + numOfTreasure);
-                    Console.WriteLine("Treasure Picked:");
-                    for (int idx = 0; idx < treasurePicked.Count; idx++)
-                    {
-                        Console.Write(string.Format("({0},{1}), ", treasurePicked[idx].rowId, treasurePicked[idx].colId));
-                    }*/
-                }
                 if (numOfTreasure == 0)
                 {
                     allTreasureFound = true; // all treasure found
@@ -64,8 +54,7 @@ namespace Solver
                     if (newRow < 0 || newRow >= map.rows || newCol < 0 || newCol >= map.cols ||
                         visited[newRow, newCol] || map.grid[newRow, newCol] == 'X' || allTreasureFound)
                     {
-                        // won't be visited
-                        continue;
+                        continue; // won't be visited
                     }
                     // else
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
@@ -74,7 +63,8 @@ namespace Solver
 
                     if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.rowId == newRow && p.colId == newCol) == -1)
                     {
-                        // mark picked
+                        // treasure found!
+                        // mark as picked
                         numOfTreasure--; // treasure found
                         treasurePicked.Add(new Point(newRow, newCol));
 
@@ -99,6 +89,8 @@ namespace Solver
 
             // stop watch
             watch.Stop();
+
+            // result
             pathPoints = convertPathPoints(pathPointDir);
             cntNode = pathPoints.Count;
             num_node = cntNode;
@@ -124,11 +116,11 @@ namespace Solver
                 curCol = queue.Peek().colId;
                 queue.Dequeue(); // dequeue
 
-                pathPoints.Add(new Point(curRow, curCol));
+                pathPoints.Add(new Point(curRow, curCol)); // add points
 
                 if (curRow == end.rowId && curCol == end.colId)
                 {
-                    break;
+                    break; // if reached the end point
                 }
 
                 // visit node (direction priority: RLDU)
@@ -139,16 +131,16 @@ namespace Solver
                     if (newRow < 0 || newRow >= map.rows || newCol < 0 || newCol >= map.cols ||
                         visited[newRow, newCol] || map.grid[newRow, newCol] == 'X')
                     {
-                        // won't be visited
-                        continue;
+                        continue; // won't be visited
                     }
                     // else
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
-                    visited[newRow, newCol] = true;
+                    visited[newRow, newCol] = true; // visited
                     from[newRow, newCol] = direction[i];
                 }
             }
             curRow = end.rowId; curCol = end.colId;
+            // create path
             while (from[curRow, curCol] != 'X')
             {
                 solution = from[curRow, curCol] + solution;
@@ -188,7 +180,7 @@ namespace Solver
             {
                 if (currentPathRow == tempStartRow && currentPathCol == tempStartCol)
                 {
-                    break;
+                    break; // if reached start
                 }
 
                 // path solution (reversed: from the last treasure to temp start)
@@ -214,12 +206,13 @@ namespace Solver
                 tempSolutionReversed += tempSolution[strIdx];
                 strIdx--;
             }
+            // result
             solution += tempSolutionReversed;
         }
 
         public static List<Point> convertPathPoints(List<PointDir> pathPoints)
         {
-            /* convert List of PointDir to List of Point (no direction index) */
+            // convert List of PointDir to List of Point (no direction index)
             List<Point> result = new List<Point>() { };
             foreach (PointDir p in pathPoints)
             {

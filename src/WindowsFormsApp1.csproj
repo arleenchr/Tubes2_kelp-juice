@@ -56,7 +56,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Point.cs" />
