@@ -54,6 +54,7 @@ namespace WindowsFormsApp1
 
         string solution = "";
         int cntNode = 0;
+        List<Solver.Point> points;
         long timeExec = 0;
 
         char[,] grid = {{'K', 'R', 'R', 'R'},
@@ -121,22 +122,13 @@ namespace WindowsFormsApp1
             dataGridView1.DefaultCellStyle.Font = myFont;
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dataGridView1.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(dataGridView1, true, null);
-            for (int i = 0; i < 4; i++)
+
+            for (int i = 0; i < map.cols; i++)
             {
-                //DataGridViewImageColumn imgCol = new DataGridViewImageColumn();
                 dataGridView1.Columns.Add("dummy","dummy");
                 dataGridView1.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGridView1.Columns[i].Width = 85;
                 dataGridView1.Columns[i].DividerWidth = 5;
-                /*
-                imgCol.Width = 80;
-                imgCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
-                imgCol.DefaultCellStyle.SelectionBackColor = Color.Black;
-                */
-            }
-            for(int i=0;i < 4; i++)
-            {
-                
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -156,6 +148,7 @@ namespace WindowsFormsApp1
                 mapExist = true;
 
                 string filename = ofd.FileName;
+
                 foreach(char c in filename)
                 {
                     if (c == '\\')
@@ -165,14 +158,57 @@ namespace WindowsFormsApp1
                         label1.Text += c;
                     }
                 }
+                try
+                {
+                    map = Parser.Parse(filename);
+                }
+                catch (Exception ex)
+                {
+                    //map not valid!!
+                }
+                
 
-                int i = 0;
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
                 dataGridView1.Refresh();
                 fillData();
                 dataGridView1.Visible = true;
 
+                for(int i=0;i<map.rows;i++)
+                {
+                    int rowId = dataGridView1.Rows.Add();
+
+                    DataGridViewRow row = dataGridView1.Rows[rowId];
+
+                    for(int k = 0; k < map.cols; k++)
+                    {
+                        char c = map.grid[i, k];
+                        if (c == 'K')
+                        {
+                            //row.Cells[j].Value = Image.FromFile(startImagePath);
+                            row.Cells[k].Value = "b";
+
+                            startColumn = k;
+                            startRow = i;
+                        }
+                        else if (c == 'R')
+                        {
+                            row.Cells[k].Value = "";
+                        }
+                        else if (c == 'T')
+                        {
+                            row.Cells[k].Value = "c";
+                            num_treasure++;
+                        }
+                        else if (c == 'X')
+                        {
+                            row.Cells[k].Value = "";
+                            row.Cells[k].Style.BackColor = Color.FromArgb(217, 190, 150);
+
+                        }
+                    }
+                }
+                /*
                 foreach (string lines in File.ReadAllLines(ofd.FileName))
                 {
                     int rowId = dataGridView1.Rows.Add();
@@ -214,7 +250,10 @@ namespace WindowsFormsApp1
                         }
                     }
                     i++;
+                
                 }
+                */
+
                 
             }
         }
@@ -303,11 +342,11 @@ namespace WindowsFormsApp1
                 checkStars();
                 if (method == "DFS")
                 {
-                    Solver.DFSSolver.CallDFS(map, ref solution, ref cntNode, ref timeExec);
+                    Solver.DFSSolver.CallDFS(map, ref solution, ref cntNode, ref points, ref timeExec);
                 }
                 else if (method == "BFS")
                 {
-                   // Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
+                   Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref points, ref timeExec);
                 }
                 trackBar1.Visible = true;
                 trackBar1.Maximum = solution.Length;
