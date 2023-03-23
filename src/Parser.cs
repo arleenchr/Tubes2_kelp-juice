@@ -19,11 +19,11 @@ namespace Solver
         }
         public static Map Parse(string userFileName)
         {
-            string directoryPath = "..\\test";
             /*
-            //userFileName = "..\\test\\" + userFileName;
-            
-            string[] files = Directory.GetFiles(userFileName);
+            string directoryPath = "..\\test";
+            userFileName = "..\\test\\" + userFileName;
+
+            string[] files = Directory.GetFiles(directoryPath);
             bool foundFile = false;
             foreach (string file in files)
             {
