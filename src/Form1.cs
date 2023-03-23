@@ -389,6 +389,10 @@ namespace WindowsFormsApp1
                 {
                    Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref points, ref timeExec);
                 }
+                else if(method == "TSP")
+                {
+                    Solver.TSPSolver.CallTSP(map, ref solution, ref cntNode, ref points, ref timeExec);
+                }
                 checkBox2.Checked = false;
                 resetMap(Color.White);
                 colorPath(solution.Length, Color.FromArgb(89, 139, 93));
@@ -414,7 +418,7 @@ namespace WindowsFormsApp1
                     label3.Text += c;
                     label3.Text += " ";
                 }
-                label4.Text = "Number\nof Node \nChecked:\n" + cntNode;
+                label4.Text = "Number\nof Times\nNode \nChecked:\n" + cntNode;
                 label5.Text = "Executed\nTime:\n" + timeExec + " ms";
                 label6.Text = "Path\nLength:\n" + solution.Length;
 
