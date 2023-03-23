@@ -55,10 +55,12 @@ namespace Solver
                     else if (i == map.numOfTreasure)
                     {
                         BFSSolver.BFSOneGoal(map, permutation.ElementAt(i - 1), map.start, ref curSolution, ref curPathPoints);
+                        curPathPoints.RemoveAt(0);
                     }
                     else
                     {
                         BFSSolver.BFSOneGoal(map, permutation.ElementAt(i - 1), permutation.ElementAt(i), ref curSolution, ref curPathPoints);
+                        curPathPoints.RemoveAt(0);
                     }
                     permutationSolution = permutationSolution + curSolution;
                     permutationPathPoints.AddRange(curPathPoints);
