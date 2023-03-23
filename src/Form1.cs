@@ -287,8 +287,21 @@ namespace WindowsFormsApp1
             for (int i=0;i<end; i++)
             {
                 Solver.Point p = points[i];
+                Color curColor = dataGridView1.Rows[p.rowId].Cells[p.colId].Style.BackColor;
+                Color nextColor = color;
+                if (curColor != Color.White)
+                {
+                    byte rval = curColor.R;
+                    byte gval = curColor.G;
+                    byte bval = curColor.B;
 
-                colorBox(p, color);
+                    if (rval - 25 > 0) rval -= 25;
+                    if(gval - 25 > 0) gval -= 25;
+                    if(bval - 25 > 0)  bval -= 25;
+
+                    nextColor = Color.FromArgb(rval,gval,bval);
+                }
+                colorBox(p, nextColor);
                 /*
                 char c = solution[i];
                 if (c == 'R')
@@ -414,7 +427,8 @@ namespace WindowsFormsApp1
             //Point curBox=colorMap(trackBar1.Value, Color.SteelBlue);
             if(trackBar1.Value > 0)
             {
-                colorMap(trackBar1.Value-1, Color.FromArgb(239,228,176));
+                
+                colorMap(trackBar1.Value-1, Color.FromArgb(255,196,23));
             }
 
             int end = trackBar1.Value - 1;
