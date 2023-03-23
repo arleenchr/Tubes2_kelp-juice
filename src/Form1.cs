@@ -105,9 +105,9 @@ namespace WindowsFormsApp1
 
             myFont3 = new Font(fonts.Families[0], 30.0F);
             myFont3 = new Font(myFont3, FontStyle.Bold);
-            checkBox1.Font= myFont3;
             radioButton1.Font= myFont3;
             radioButton2.Font= myFont3;
+            radioButton3.Font= myFont3;
 
             myFont4 = new Font(fonts.Families[0], 22.0F);
             myFont4 = new Font(myFont4, FontStyle.Regular);
@@ -163,6 +163,7 @@ namespace WindowsFormsApp1
                 catch (Exception ex)
                 {
                     failOpen = true;
+                    mapExist = false;
                 }
 
                 if (!failOpen)
@@ -455,7 +456,30 @@ namespace WindowsFormsApp1
         {
 
         }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+            if (checkBox2.Checked)
+            {
+                trackBar1.Visible = true;
+                trackBar1.Maximum = points.Count;
+                trackBar1.Value = trackBar1.Maximum;
+                trackBar1.Value = 0;
 
+                button3.Visible = true;
+                button4.Visible = true;
+            }
+            else
+            {
+                trackBar1.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
+
+                resetMap(Color.White);
+                colorPath(solution.Length, Color.FromArgb(89, 139, 93));
+                checkStars();
+            }
+        }
 
         // ........................................
         // CODE BELOW ARE MADE FOR DESIGN PURPOSES
@@ -562,31 +586,6 @@ namespace WindowsFormsApp1
             button4.BackgroundImage = Image.FromFile(button4HoverImagePath);
         }
 
-        private void checkBox1_MouseLeave(object sender, EventArgs e)
-        {
-            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
-        }
-
-        private void checkBox1_MouseEnter(object sender, EventArgs e)
-        {
-            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
-        }
-
-        private void checkBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            checkBox1.BackgroundImage= checkBox1.Checked? Image.FromFile(checkedPressImagePath): Image.FromFile(uncheckedPressImagePath);
-        }
-
-        private void checkBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBox2_MouseEnter(object sender, EventArgs e)
         {
             checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
@@ -607,31 +606,6 @@ namespace WindowsFormsApp1
             checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
-            if (checkBox2.Checked)
-            {
-                trackBar1.Visible = true;
-                trackBar1.Maximum = points.Count;
-                trackBar1.Value = trackBar1.Maximum;
-                trackBar1.Value = 0;
-                
-                button3.Visible = true;
-                button4.Visible = true;
-            }
-            else
-            {
-                trackBar1.Visible = false;
-                button3.Visible = false;
-                button4.Visible = false;
-
-                resetMap(Color.White);
-                colorPath(solution.Length, Color.FromArgb(89,139,93));
-                checkStars();
-            }
-        }
-
         private void label2_Click(object sender, EventArgs e)
         {
             checkBox2.Checked = checkBox2.Checked ? false : true;
@@ -641,5 +615,6 @@ namespace WindowsFormsApp1
         {
 
         }
+
     }
 }
