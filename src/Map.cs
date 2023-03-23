@@ -12,7 +12,6 @@ namespace Solver
         public int numOfTreasure { get; set; } // treasure count
         public List<Point> treasureLoc { get; set; } = new List<Point>(); // treasure location
 
-        /* methods */
         /* constructor */
         public Map(char[,] _grid)
         {
