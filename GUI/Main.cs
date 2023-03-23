@@ -1,3 +1,4 @@
+/*
 using Solver;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class Program
         /*char[,] grid = {{'K', 'R', 'T', 'R'},
                         {'X', 'X', 'R', 'R'},
                         {'R', 'T', 'R', 'R'},
-                        {'R', 'R', 'R', 'R'}};*/
+                        {'R', 'R', 'R', 'R'}};
         Map map = new Map(grid);
 
         for (int i=0; i <map.rows; i++) {
@@ -39,7 +40,7 @@ public class Program
         foreach (char c in solution)
         {
             Console.Write(c + " ");
-        }*/
+        }
 
         //Console.WriteLine();
         Console.WriteLine("BFS");
@@ -59,3 +60,4 @@ public class Program
         }
     }
 }
+*/

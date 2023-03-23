@@ -42,6 +42,12 @@ namespace WindowsFormsApp1
         string button4ImagePath = @"..\..\resources\button4.png";
         string button4HoverImagePath = @"..\..\resources\button4hover.png";
         string button4PressImagePath = @"..\..\resources\button4pressed.png";
+        string checkedImagePath = @"..\..\resources\checkedbox.png";
+        string checkedHoverImagePath = @"..\..\resources\checkedboxhover.png";
+        string checkedPressImagePath = @"..\..\resources\checkedboxpressed.png";
+        string uncheckedImagePath = @"..\..\resources\uncheckedbox.png";
+        string uncheckedHoverImagePath = @"..\..\resources\uncheckedboxhover.png";
+        string uncheckedPressImagePath = @"..\..\resources\uncheckedboxpressed.png";
         string mapImagePath = @"..\..\resources\map.png";
         string titleImagePath = @"..\..\resources\title.png";
         bool mapExist = false;
@@ -100,7 +106,6 @@ namespace WindowsFormsApp1
             myFont3 = new Font(myFont3, FontStyle.Bold);
             radioButton1.Font= myFont3;
             radioButton2.Font= myFont3;
-            radioButton3.Font= myFont3;
 
             myFont4 = new Font(fonts.Families[0], 22.0F);
             myFont4 = new Font(myFont4, FontStyle.Bold);
@@ -302,7 +307,7 @@ namespace WindowsFormsApp1
                 }
                 else if (method == "BFS")
                 {
-                    Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
+                   // Solver.BFSSolver.BFS(map, ref solution, ref cntNode, ref timeExec);
                 }
                 trackBar1.Visible = true;
                 trackBar1.Maximum = solution.Length;
@@ -321,7 +326,7 @@ namespace WindowsFormsApp1
                     label3.Text += c;
                     label3.Text += " ";
                 }
-                label4.Text = "Number of node : " + cntNode;
+                label4.Text = "Number of node checked : " + cntNode;
                 label5.Text = "Time executed : " + timeExec + " ms";
 
                 
@@ -474,6 +479,41 @@ namespace WindowsFormsApp1
         private void button4_MouseEnter(object sender, EventArgs e)
         {
             button4.BackgroundImage = Image.FromFile(button4HoverImagePath);
+        }
+
+        private void checkBox1_MouseLeave(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked)
+            {
+                checkBox1.BackgroundImage = Image.FromFile(checkedImagePath);
+            }
+            else
+                checkBox1.BackgroundImage = Image.FromFile(uncheckedImagePath);
+        }
+
+        private void checkBox1_MouseEnter(object sender, EventArgs e)
+        {
+            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
+        }
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            //checkBox1.Checked = checkBox1.Checked ? true : false;
+        }
+
+        private void checkBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            checkBox1.BackgroundImage= checkBox1.Checked? Image.FromFile(checkedPressImagePath): Image.FromFile(uncheckedPressImagePath);
+        }
+
+        private void checkBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            checkBox1.BackgroundImage = checkBox1.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
