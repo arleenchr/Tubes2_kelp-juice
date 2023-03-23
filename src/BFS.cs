@@ -100,7 +100,7 @@ namespace Solver
             // stop watch
             watch.Stop();
             pathPoints = convertPathPoints(pathPointDir);
-            cntNode = pathPoints.Count + 1;
+            cntNode = pathPoints.Count;
             num_node = cntNode;
             sol = solution;
             timeExec = watch.ElapsedMilliseconds;
@@ -177,7 +177,7 @@ namespace Solver
                 currentCol = currentPoint.colId;
             }
             pathPoints = convertPathPoints(pathPointDir);
-            cntNode = pathPoints.Count + 1;
+            cntNode = pathPoints.Count;
             num_node = cntNode;
             sol = solution;
         }
