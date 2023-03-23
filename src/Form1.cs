@@ -88,7 +88,7 @@ namespace WindowsFormsApp1
             AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.icomoon.Length, IntPtr.Zero, ref dummy);
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
 
-            myFont = new Font(fonts.Families[0], 24.0F);
+            myFont = new Font(fonts.Families[0], 18.0F);
             //myFont = new Font(myFont, FontStyle.Bold);
 
             byte[] fontData2 = Properties.Resources.FranxurterTotally;
@@ -130,7 +130,7 @@ namespace WindowsFormsApp1
             {
                 dataGridView1.Columns.Add("dummy","dummy");
                 dataGridView1.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dataGridView1.Columns[i].Width = 85;
+                dataGridView1.Columns[i].Width = 70;
                 dataGridView1.Columns[i].DividerWidth = 5;
             }
         }
@@ -632,5 +632,9 @@ namespace WindowsFormsApp1
 
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
