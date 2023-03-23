@@ -281,7 +281,7 @@ namespace WindowsFormsApp1
         private void colorMap(int end, Color color)
         {
             if (startRow == -1) return ;
-            dataGridView1.Rows[startRow].Cells[startColumn].Style.BackColor = color;
+            //dataGridView1.Rows[startRow].Cells[startColumn].Style.BackColor = color;
 
             int curRow = startRow;
             int curColumn = startColumn;
