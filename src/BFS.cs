@@ -32,6 +32,7 @@ namespace Solver
             int tempStartRow = currentRow;
             int tempStartCol = currentCol;
             queue.Enqueue(new Point(currentRow, currentCol)); // add first position to queue
+            pathPointDir.Add(new PointDir(currentRow, currentCol, -1)); // add first point to solution (x,y,direction index=-1)
 
             while (!allTreasureFound && queue.Count > 0)
             {
@@ -125,6 +126,7 @@ namespace Solver
             int tempStartRow = currentRow;
             int tempStartCol = currentCol;
             queue.Enqueue(new Point(currentRow, currentCol)); // add first position to queue
+            pathPointDir.Add(new PointDir(currentRow, currentCol, -1)); // add first point to solution (x,y,direction index=-1)
 
             while (!isTreasureFound && queue.Count > 0)
             {
