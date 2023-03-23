@@ -9,9 +9,8 @@ namespace Solver
 {
     public class BFSSolver : Solver
     {
-        public static void BFS(Map map, ref string sol, ref int num_node, ref List<PointDir> pathPoints, ref long timeExec)
+        public static void BFS(Map map, ref string sol, ref int num_node, ref List<Point> pathPoints, ref long timeExec)
         {
-            cntNode = 0;
             string solution = ""; // solution path
             allTreasureFound = false;
             numOfTreasure = map.numOfTreasure;
@@ -20,7 +19,7 @@ namespace Solver
 
             Queue<Point> queue = new Queue<Point> { }; // queue of to-be-visited nodes (queue of Point)
 
-            pathPoints = new List<PointDir>() { }; // list of PointDir
+            List<PointDir> pathPointDir = new List<PointDir>() { }; // list of PointDir
 
             List<Point> treasurePicked = new List<Point>() { }; // list of treasure picked 
 
@@ -36,7 +35,6 @@ namespace Solver
 
             while (!allTreasureFound && queue.Count > 0)
             {
-                cntNode += 1; // node check
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
@@ -70,9 +68,9 @@ namespace Solver
                     }
                     // else
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
-                    pathPoints.Add(new PointDir(newRow, newCol, i)); // add to solution (x,y,direction index)
+                    pathPointDir.Add(new PointDir(newRow, newCol, i)); // add to solution (x,y,direction index)
                     visited[newRow, newCol] = true; // visited
-                    
+
                     if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.rowId == newRow && p.colId == newCol) == -1)
                     {
                         // mark picked
@@ -80,7 +78,7 @@ namespace Solver
                         treasurePicked.Add(new Point(newRow, newCol));
 
                         // create path
-                        createPath(pathPoints, tempStartRow, tempStartCol, ref solution);
+                        createPath(pathPointDir, tempStartRow, tempStartCol, ref solution);
 
                         // begin again
                         queue.Clear(); // delete queue
@@ -100,7 +98,8 @@ namespace Solver
 
             // stop watch
             watch.Stop();
-
+            pathPoints = convertPathPoints(pathPointDir);
+            cntNode = pathPoints.Count + 1;
             num_node = cntNode;
             sol = solution;
             timeExec = watch.ElapsedMilliseconds;
@@ -109,7 +108,6 @@ namespace Solver
         public static void BFSOneTreasure(Map map, Point start, ref Point treasurePosition, ref string sol, ref int num_node, ref List<PointDir> pathPoints)
         {
             // search for one treasure only
-            cntNode = 0;
             string solution = ""; // solution path
             bool isTreasureFound = false;
             numOfTreasure = map.numOfTreasure;
@@ -130,7 +128,6 @@ namespace Solver
 
             while (!isTreasureFound && queue.Count > 0)
             {
-                cntNode += 1; // node check
                 visited[currentRow, currentCol] = true; // visited
                 queue.Dequeue(); // dequeue
 
@@ -155,7 +152,7 @@ namespace Solver
                     queue.Enqueue(new Point(newRow, newCol)); // enqueue nodes
                     pathPoints.Add(new PointDir(newRow, newCol, i)); // add to solution (x,y,direction index)
                     visited[newRow, newCol] = true; // visited
-                    
+
                     if (map.grid[newRow, newCol] == 'T' && treasurePicked.FindIndex(p => p.rowId == newRow && p.colId == newCol) == -1)
                     {
                         // mark picked
@@ -178,6 +175,7 @@ namespace Solver
                 currentCol = currentPoint.colId;
             }
 
+            cntNode = pathPoints.Count + 1;
             num_node = cntNode;
             sol = solution;
         }
@@ -189,7 +187,7 @@ namespace Solver
             int currentPathRow = pathPoints[pathPoints.Count - 1].rowId;
             int currentPathCol = pathPoints[pathPoints.Count - 1].colId;
             int currentDirection = pathPoints[pathPoints.Count - 1].direction;
-            
+
             bool reachStart = false;
             string tempSolution = "";
             while (!reachStart)
@@ -198,10 +196,10 @@ namespace Solver
                 {
                     break;
                 }
-                
+
                 // path solution (reversed: from the last treasure to temp start)
                 tempSolution += direction[currentDirection];
-                
+
                 // search for the previous node
                 currentPathRow += reverse_dy[currentDirection];
                 currentPathCol += reverse_dx[currentDirection];
@@ -223,6 +221,16 @@ namespace Solver
                 strIdx--;
             }
             solution += tempSolutionReversed;
+        }
+
+        public static List<Point> convertPathPoints(List<PointDir> pathPoints)
+        {
+            List<Point> result = new List<Point>() { };
+            foreach (PointDir p in pathPoints)
+            {
+                result.Add(new Point(p.rowId, p.colId));
+            }
+            return result;
         }
     }
 }

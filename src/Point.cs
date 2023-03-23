@@ -23,7 +23,7 @@ namespace Solver
         public int direction { get; set; }
 
         /* constructor */
-        public PointDir(int _rowId, int _colId, int _direction) : base(_rowId,_colId)
+        public PointDir(int _rowId, int _colId, int _direction) : base(_rowId, _colId)
         {
             direction = _direction;
         }
@@ -38,6 +38,7 @@ namespace Solver
             }
             return false;
         }
+
         public override int GetHashCode()
         {
             return rowId ^ colId ^ direction;
