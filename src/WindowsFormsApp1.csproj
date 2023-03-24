@@ -14,6 +14,22 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>C:\Users\User\Desktop\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -99,6 +115,75 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\6654537.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\map2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button1hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button1pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button2hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button2pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button3hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button3pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button4hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\button4pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\checkedbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\checkedboxhover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\checkedboxpressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\uncheckedbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\uncheckedboxhover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\uncheckedboxpressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,7 @@ using System.Reflection;
 using Solver;
 
 using System.Drawing.Text;
+using System.Threading;
 
 namespace WindowsFormsApp1
 {
@@ -29,27 +30,6 @@ namespace WindowsFormsApp1
         Font myFont3;
         Font myFont4;
 
-        string path = "RDDRRU";
-        string buttonImagePath = @"..\..\resources\button1.png";
-        string buttonHoverImagePath = @"..\..\resources\button1hover.png";
-        string buttonPressImagePath = @"..\..\resources\button1pressed.png";
-        string button2ImagePath = @"..\..\resources\button2.png";
-        string button2HoverImagePath = @"..\..\resources\button2hover.png";
-        string button2PressImagePath = @"..\..\resources\button2pressed.png";
-        string button3ImagePath = @"..\..\resources\button3.png";
-        string button3HoverImagePath = @"..\..\resources\button3hover.png";
-        string button3PressImagePath = @"..\..\resources\button3pressed.png";
-        string button4ImagePath = @"..\..\resources\button4.png";
-        string button4HoverImagePath = @"..\..\resources\button4hover.png";
-        string button4PressImagePath = @"..\..\resources\button4pressed.png";
-        string checkedImagePath = @"..\..\resources\checkedbox.png";
-        string checkedHoverImagePath = @"..\..\resources\checkedboxhover.png";
-        string checkedPressImagePath = @"..\..\resources\checkedboxpressed.png";
-        string uncheckedImagePath = @"..\..\resources\uncheckedbox.png";
-        string uncheckedHoverImagePath = @"..\..\resources\uncheckedboxhover.png";
-        string uncheckedPressImagePath = @"..\..\resources\uncheckedboxpressed.png";
-        string mapImagePath = @"..\..\resources\map.png";
-        string titleImagePath = @"..\..\resources\title.png";
         bool mapExist = false;
 
         string solution = "";
@@ -139,7 +119,7 @@ namespace WindowsFormsApp1
             bool failOpen = false;
             OpenFileDialog ofd = new OpenFileDialog();
 
-            ofd.Filter = "Text files (*.txt)|*.txt|All Files (*.*)|*.*";
+            ofd.Filter = "Text files (*.txt)|*.txt";
 
             if(ofd.ShowDialog() == DialogResult.OK)
             {
@@ -151,10 +131,12 @@ namespace WindowsFormsApp1
                     label4.Visible = false;
                     label5.Visible = false;
                     label6.Visible = false;
+                    label7.Visible = false;
                     trackBar1.Visible = false;
                     button3.Visible = false;
                     button4.Visible = false;
                     checkBox2.Visible = false;
+                    trackBar2.Visible = false;
                     dataGridView1.Rows.Clear();
                     dataGridView1.Columns.Clear();
                     dataGridView1.Refresh();
@@ -212,7 +194,6 @@ namespace WindowsFormsApp1
                             char c = map.grid[i, k];
                             if (c == 'K')
                             {
-                                //row.Cells[j].Value = Image.FromFile(startImagePath);
                                 row.Cells[k].Value = "b";
 
                                 startColumn = k;
@@ -259,23 +240,60 @@ namespace WindowsFormsApp1
                 if (c == 'R')
                 {
                     curColumn++;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
                 else if (c == 'L')
                 {
                     curColumn--;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
                 else if (c == 'U')
                 {
                     curRow--;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
                 else if (c == 'D')
                 {
                     curRow++;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
                 }
+
+                Color curColor = dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor;
+                Color nextColor = color;
+                if (curColor != Color.White)
+                {
+                    byte rval = curColor.R;
+                    byte gval = curColor.G;
+                    byte bval = curColor.B;
+
+                    if (rval - 30 > 0) rval -= 30;
+                    if (gval - 30 > 0) gval -= 30;
+                    if (bval - 30 > 0) bval -= 30;
+
+                    nextColor = Color.FromArgb(rval, gval, bval);
+                }
+
+                colorBox(curRow, curColumn, nextColor);
+
+            }
+        }
+
+        private void colorMapAnimate(Color color)
+        {
+            foreach (Solver.Point p in points)
+            {
+                Color curColor = dataGridView1.Rows[p.rowId].Cells[p.colId].Style.BackColor;
+                Color nextColor = color;
+                if (curColor != Color.White)
+                {
+                    byte rval = curColor.R;
+                    byte gval = curColor.G;
+                    byte bval = curColor.B;
+
+                    if (rval - 25 > 0) rval -= 25;
+                    if (gval - 25 > 0) gval -= 25;
+                    if (bval - 25 > 0) bval -= 25;
+
+                    nextColor = Color.FromArgb(rval, gval, bval);
+                }
+                colorBox(p, nextColor);
+                Thread.Sleep(1000);
             }
         }
         private void colorMap(int end, Color color)
@@ -304,29 +322,6 @@ namespace WindowsFormsApp1
                     nextColor = Color.FromArgb(rval,gval,bval);
                 }
                 colorBox(p, nextColor);
-                /*
-                char c = solution[i];
-                if (c == 'R')
-                {
-                    curColumn++;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-                }
-                else if (c == 'L')
-                {
-                    curColumn--;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-                }
-                else if (c == 'U')
-                {
-                    curRow--;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-                }
-                else if (c == 'D')
-                {
-                    curRow++;
-                    dataGridView1.Rows[curRow].Cells[curColumn].Style.BackColor = color;
-                }
-                */
             }
         }
 
@@ -395,7 +390,7 @@ namespace WindowsFormsApp1
                 }
                 checkBox2.Checked = false;
                 resetMap(Color.White);
-                colorPath(solution.Length, Color.FromArgb(89, 139, 93));
+                colorPath(solution.Length, Color.FromArgb(110, 160, 114));
                 checkStars();
                 /*
                 trackBar1.Visible = true;
@@ -411,6 +406,8 @@ namespace WindowsFormsApp1
                 label6.Visible = true;
                 
                 checkBox2.Visible = true;
+                label7.Visible = true;
+                trackBar2.Visible = true;
 
                 label3.Text = "Path : ";
                 foreach (char c in solution)
@@ -476,18 +473,31 @@ namespace WindowsFormsApp1
         {
 
         }
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private async void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+            checkBox2.BackgroundImage = checkBox2.Checked ? Properties.Resources.checkedbox : Properties.Resources.uncheckedbox;
             if (checkBox2.Checked)
             {
-                trackBar1.Visible = true;
+                bool normal = true;
                 trackBar1.Maximum = points.Count;
                 trackBar1.Value = trackBar1.Maximum;
                 trackBar1.Value = 0;
-
-                button3.Visible = true;
-                button4.Visible = true;
+                for(int i= 0; i <= trackBar1.Maximum; i++)
+                {
+                    trackBar1.Value = i;
+                    await Task.Delay(trackBar2.Value);
+                    if (checkBox2.Checked == false)
+                    {
+                        normal = false;
+                        break;
+                    }
+                }
+                if (normal)
+                {
+                    trackBar1.Visible = true;
+                    button3.Visible = true;
+                    button4.Visible = true;
+                }
             }
             else
             {
@@ -506,43 +516,44 @@ namespace WindowsFormsApp1
         // ........................................
         private void button1_MouseEnter(object sender, EventArgs e)
         {
-            button1.BackgroundImage = Image.FromFile(buttonHoverImagePath);
+            button1.BackgroundImage = Properties.Resources.button1hover;
         }
 
         private void button1_MouseLeave(object sender, EventArgs e)
         {
-            button1.BackgroundImage = Image.FromFile(buttonImagePath);
+            button1.BackgroundImage = Properties.Resources.button1;
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)
         {
-            button1.BackgroundImage= Image.FromFile(buttonPressImagePath);
+            button1.BackgroundImage = Properties.Resources.button1pressed;
         }
 
         private void button1_MouseUp(object sender, MouseEventArgs e)
         {
-            button1.BackgroundImage = Image.FromFile(buttonImagePath);
+            button1.BackgroundImage = Properties.Resources.button1;
         }
 
         private void button2_MouseLeave(object sender, EventArgs e)
         {
-            button2.BackgroundImage = Image.FromFile(button2ImagePath);
-            
+            button2.BackgroundImage = Properties.Resources.button2;
+
+
         }
 
         private void button2_MouseEnter(object sender, EventArgs e)
         {
-            button2.BackgroundImage = Image.FromFile(button2HoverImagePath);
+            button2.BackgroundImage = Properties.Resources.button2hover;
         }
 
         private void button2_MouseDown(object sender, MouseEventArgs e)
         {
-            button2.BackgroundImage = Image.FromFile(button2PressImagePath);
+            button2.BackgroundImage = Properties.Resources.button2pressed;
         }
 
         private void button2_MouseUp(object sender, MouseEventArgs e)
         {
-            button2.BackgroundImage= Image.FromFile(button2ImagePath);
+            button2.BackgroundImage = Properties.Resources.button2;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -568,62 +579,62 @@ namespace WindowsFormsApp1
 
         private void button3_MouseEnter(object sender, EventArgs e)
         {
-            button3.BackgroundImage=Image.FromFile(button3HoverImagePath);
+            button3.BackgroundImage = Properties.Resources.button3hover;
         }
 
         private void button3_MouseDown(object sender, MouseEventArgs e)
         {
-            button3.BackgroundImage= Image.FromFile(button3PressImagePath);
+            button3.BackgroundImage = Properties.Resources.button3pressed;
         }
 
         private void button3_MouseLeave(object sender, EventArgs e)
         {
-            button3.BackgroundImage = Image.FromFile(button3ImagePath);
+            button3.BackgroundImage = Properties.Resources.button3;
         }
 
         private void button3_MouseUp(object sender, MouseEventArgs e)
         {
-            button3.BackgroundImage = Image.FromFile(button3ImagePath);
+            button3.BackgroundImage = Properties.Resources.button3;
         }
 
         private void button4_MouseLeave(object sender, EventArgs e)
         {
-            button4.BackgroundImage = Image.FromFile(button4ImagePath);
+            button4.BackgroundImage = Properties.Resources.button4;
         }
 
         private void button4_MouseUp(object sender, MouseEventArgs e)
         {
-            button4.BackgroundImage = Image.FromFile(button4ImagePath);
+            button4.BackgroundImage = Properties.Resources.button4;
         }
 
         private void button4_MouseDown(object sender, MouseEventArgs e)
         {
-            button4.BackgroundImage = Image.FromFile(button4PressImagePath);
+            button4.BackgroundImage = Properties.Resources.button4pressed;
         }
 
         private void button4_MouseEnter(object sender, EventArgs e)
         {
-            button4.BackgroundImage = Image.FromFile(button4HoverImagePath);
+            button4.BackgroundImage = Properties.Resources.button4hover;
         }
 
         private void checkBox2_MouseEnter(object sender, EventArgs e)
         {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedHoverImagePath) : Image.FromFile(uncheckedHoverImagePath);
+            checkBox2.BackgroundImage = checkBox2.Checked ? Properties.Resources.checkedboxhover : Properties.Resources.uncheckedboxhover;
         }
 
         private void checkBox2_MouseLeave(object sender, EventArgs e)
         {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+            checkBox2.BackgroundImage = checkBox2.Checked ? Properties.Resources.checkedbox : Properties.Resources.uncheckedbox;
         }
 
         private void checkBox2_MouseDown(object sender, MouseEventArgs e)
         {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedPressImagePath) : Image.FromFile(uncheckedPressImagePath);
+            checkBox2.BackgroundImage = checkBox2.Checked ? Properties.Resources.checkedboxpressed : Properties.Resources.uncheckedboxpressed;
         }
 
         private void checkBox2_MouseUp(object sender, MouseEventArgs e)
         {
-            checkBox2.BackgroundImage = checkBox2.Checked ? Image.FromFile(checkedImagePath) : Image.FromFile(uncheckedImagePath);
+            checkBox2.BackgroundImage = checkBox2.Checked ? Properties.Resources.checkedbox : Properties.Resources.uncheckedbox;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -637,6 +648,11 @@ namespace WindowsFormsApp1
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
         {
 
         }
