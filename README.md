@@ -4,7 +4,7 @@
 Program dibuat menggunakan bahasa C# guna memenuhi "Tugas Besar 2 Stima 2022/2023". Program ini melakukan pencarian semua "treasure" dalam suatu maze. Algoritma yang digunakan ialah DFS/BFS/TSP yang dapat diubah sesuai keinginan melalui GUI.
 
 ## Program Requirement
-* **Windows 10**<br>
+* **Windows 10 or Newer**<br>
 
 ## Getting Started
 1. Clone Repository
