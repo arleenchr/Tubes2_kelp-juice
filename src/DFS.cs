@@ -8,18 +8,23 @@ namespace Solver
     {
         static void DFS(int row, int col)
         {
-            cntNode++; // Node check
+            // Node check
+            cntNode++; 
             visited[row, col] = true;
 
-            if (map.grid[row, col] == 'T') // Found treasure
+            // Found treasure
+            if (map.grid[row, col] == 'T')
                 numOfTreasure--;
-            if (numOfTreasure == 0) // All treasure found!
+            
+            // All treasure found!
+            if (numOfTreasure == 0)
             {
                 allTreasureFound = true;
                 return;
             }
 
-            for (int i = 0; i < 4; i++)
+            // All possible path to construct
+            for (int i = 0; i < 4; i++) 
             {
                 int newRow = row + dy[i];
                 int newCol = col + dx[i];
@@ -27,16 +32,18 @@ namespace Solver
                     visited[newRow, newCol] || map.grid[newRow, newCol] == 'X' || allTreasureFound)
                     continue;
 
+                // Recursive searching
                 solution += direction[i];
                 DFS(newRow, newCol);
 
-                if (!allTreasureFound) // Backtracking
+                // Backtracking
+                if (!allTreasureFound)
                     solution += reverseDirection[i];
             }
         }
-
         public static void CallDFS(Map _map, ref string _solution, ref int _cntNode, ref List<Point> _pathPoints, ref long timeExec)
         {
+            // Initiate
             cntNode = 0;
             allTreasureFound = false;
             solution = "";
@@ -45,11 +52,13 @@ namespace Solver
             List<Point> pathPoints = new List<Point>() { new Point(map.start.rowId, map.start.colId) };
             visited = new bool[map.rows, map.cols];
 
+            // Time execution
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
             DFS(map.start.rowId, map.start.colId);
             watch.Stop();
 
+            // Construct pathPoints from the solution path
             foreach (char direction in solution)
             {
                 switch (direction)
