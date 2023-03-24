@@ -96,6 +96,7 @@ namespace WindowsFormsApp1
             label4.Font= myFont4;
             label5.Font= myFont4;
             label6.Font= myFont4;
+            label7.Font= myFont4;
         }
 
 
