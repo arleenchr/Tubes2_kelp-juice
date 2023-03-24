@@ -4,7 +4,7 @@
 Program dibuat menggunakan bahasa C# guna memenuhi "Tugas Besar 2 Stima 2022/2023". Program ini melakukan pencarian semua "treasure" dalam suatu maze. Algoritma yang digunakan ialah DFS/BFS/TSP yang dapat diubah sesuai keinginan melalui GUI.
 
 ## Program Requirement
-* **Windows 10**<br>
+* **Windows 10 or Newer**<br>
 
 ## Getting Started
 1. Clone Repository
@@ -16,7 +16,8 @@ Program dibuat menggunakan bahasa C# guna memenuhi "Tugas Besar 2 Stima 2022/202
 4. Double klik "TreasureHunt.exe"
 
 ## Program Preview
-![image](https://user-images.githubusercontent.com/89202471/227533595-6ff0cf19-dcc7-4b2a-8aba-b2c6ae2f82fd.png)
+![video1736288866](https://user-images.githubusercontent.com/89202471/227537158-dd9ae5c5-929e-4252-a5c2-aa4a73ebc44f.gif)
+
   
 ## Contributors
 | Name  | NIM |
