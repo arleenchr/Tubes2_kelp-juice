@@ -485,7 +485,7 @@ namespace WindowsFormsApp1
                 for(int i= 0; i <= trackBar1.Maximum; i++)
                 {
                     trackBar1.Value = i;
-                    await Task.Delay(trackBar2.Value);
+                    await Task.Delay(705-trackBar2.Value);
                     if (checkBox2.Checked == false)
                     {
                         normal = false;
